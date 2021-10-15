@@ -20,10 +20,14 @@ int main(){
     
     verifica_data(data) ? printf("Data verificata\n") : printf("Data errata\n");
     
-    bis = aaaa(data) % 4;
-    bis == 0 ? printf("L'anno è bisestile, data verificata\n") : printf("L'anno non è bisestile, data non verificata\n");
-    (mm(data) == 4 || mm(data) == 6 || mm(data) == 9 || mm(data) == 11) && (dd(data) >= 1 && dd(data) <=30) ? printf("Data verificata\n") : printf("Data non verificata\n");
-    (mm(data) == 1 || mm(data) == 3 || mm(data) == 5 || mm(data) == 7 || mm(data) == 8 || mm(data) == 10 || mm(data) == 12) && (dd(data) >= 1 && dd(data) <=31) ? printf("Data verificata\n") : printf("Data non verificata\n");
+   bis = aaaa(data) % 4;
+   bis == 0 || ( bis == 0 && mm(data) == 2 && dd(data) == 29) ? printf("Data verificata\n") : printf("Data non verificata\n");
+   
+   (mm(data) == 4 || mm(data) == 6 || mm(data) == 9 || mm(data) == 11) && (dd(data) >= 1 && dd(data) <=30) ? printf("Data verificata\n") : printf("Data non verificata\n");
+   
+   (mm(data) == 1 || mm(data) == 3 || mm(data) == 5 || mm(data) == 7 || mm(data) == 8 || mm(data) == 10 || mm(data) == 12) 
+         && (dd(data) >= 1 && dd(data) <=31) ? printf("Data verificata\n") : printf("Data non verificata\n");
+   
 
 }
 
