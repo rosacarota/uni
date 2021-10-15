@@ -1,51 +1,63 @@
 #include <stdio.h>
 
-int verifica_data (int data);
+/*
+*   Creato da BP e Anto
+    ~ Dedicato al Prof. Distasi
+*/
 
-int aaaa(int data);
+int verifica_range(int data);
 
-int mm(int data);
+int restituisci_anno(int data);
 
-int dd(int data);
+int restituisci_mese(int data);
+
+int restituisci_giorno(int data);
 
 int main() {
     
-    int data, bis;
-    int verifica_range, verifica_mese_giorno30, verifica_mese_giorno31, verifica_bisestile;
+    int data, bisestile;
+    int verifica_rangee, verifica_mese_giorno30, verifica_mese_giorno31, verifica_bisestile;
 
     printf("Inserisci una data: ");
 
     scanf("%d", &data);
 
-    verifica_range =  verifica_data(data); 
+    // Primo controllo - Verifica che la data sia compresa nell'intervallo
+    verifica_rangee =  verifica_range(data);
     
-    bis = aaaa(data) % 4;
-    verifica_bisestile = bis == 0 || ( bis == 0 && mm(data) == 2 && dd(data) == 29); 
+    // Secondo controllo - Verifica che l'anno bisestile sia scritto in formato corretto
+    bisestile = restituisci_anno(data) % 4;
+    verifica_bisestile = (bisestile == 0) || (bisestile == 0 && restituisci_mese(data) == 2
+        && restituisci_giorno(data) == 29); 
     
-    verifica_mese_giorno30 = (mm(data) == 4 || mm(data) == 6 || mm(data) == 9 || mm(data) == 11) && (dd(data) >= 1 && dd(data) <=30); 
-   
-    verifica_mese_giorno31 = (mm(data) == 1 || mm(data) == 3 || mm(data) == 5 || mm(data) == 7 || mm(data) == 8 || mm(data) == 10 || mm(data) == 12) 
-        && (dd(data) >= 1 && dd(data) <=31); 
+    // Terzo controllo - Verifica che i mesi 04, 06, 09 e 11 abbiano 30 giorni
+    verifica_mese_giorno30 = (restituisci_mese(data) == 4 || restituisci_mese(data) == 6
+        || restituisci_mese(data) == 9 || restituisci_mese(data) == 11) && (restituisci_giorno(data) >= 1
+            && restituisci_giorno(data) <=30); 
+    
+    // Quarto controllo - Verifica che i mesi 01, 03, 05, 07, 08, 10 e 12 abbiano 31 giorni
+    verifica_mese_giorno31 = (restituisci_mese(data) == 1 || restituisci_mese(data) == 3
+        || restituisci_mese(data) == 5 || restituisci_mese(data) == 7 || restituisci_mese(data) == 8
+            || restituisci_mese(data) == 10 || restituisci_mese(data) == 12) 
+                && (restituisci_giorno(data) >= 1 && restituisci_giorno(data) <=31); 
 
-    (verifica_range) && (verifica_mese_giorno30 || verifica_mese_giorno31 || verifica_bisestile) ? printf("\nData verificata\n") : printf("\nData non verificata\n");
+    // Controllo finale - Verifica che tutti i controli effettuati siano rispettati
+    (verifica_rangee) && (verifica_mese_giorno30 || verifica_mese_giorno31 
+        || verifica_bisestile) ? printf("\nData verificata\n") : printf("\nData non verificata\n");
 }
 
-int verifica_data(int data)
-{
+int verifica_range(int data) {
     return data >= 1101582 && data <= 31122021;
 }
 
-int aaaa(int data)
-{
+int restituisci_anno(int data) {
     return data % 10000;
 }
 
-int mm(int data)
-{
+int restituisci_mese(int data) {
     return (data / 10000) % 100;
 }
 
-int dd(int data)
-{
+int restituisci_giorno(int data) {
     return (data / 1000000); 
 }
