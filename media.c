@@ -1,3 +1,5 @@
+/* Calcola la media dei voti inseriti*/
+
 #include <stdio.h>
 
 int main(){
@@ -11,23 +13,29 @@ int main(){
 
     i=0; 
 
-    while(voto != -1){
+    while(voto != -1){ //se il voto è uguale alla "sentinella" allora il ciclo si verma 
+   
+    /*se il voto inserito è compreso nell'intervallo di valori
+     * allora si svolgono le operazioni di somma, aumento del contatore
+     * di inserimento di un altro voto
+     */
 
-     if (voto >=0 && voto <=30 || voto ==33){ 
-        somma += voto;
-        i++;
-        printf("Inserisci un altro voto: ");
-        scanf("%d", &voto);
-        }
-        
-         else{
-            printf("Inserisci un valore valido: ");
-            scanf("%d", &voto);
+     if (voto >=0 && voto <=30 || voto ==33){
+         somma += voto;
+         i++;
+         printf("Inserisci un altro voto: ");
+         scanf("%d", &voto);
+    }
+    
+    else{
+        printf("Inserisci un valore valido: ");
+         scanf("%d", &voto);
 
     }
     }
-
-    media = somma/i;
+    
+    //la media è data dalla somma dei valori inseriti e dal contatore che aumento all'aggiunta dei valori
+    media = somma/i; 
 
     printf("La media è %.2f\n", media);
 
