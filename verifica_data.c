@@ -27,7 +27,7 @@ int main() {
     
     // Secondo controllo - Verifica che l'anno bisestile sia scritto in formato corretto
     bisestile = restituisci_anno(data) % 4;
-    verifica_bisestile = (bisestile == 0) || (bisestile == 0 && restituisci_mese(data) == 2
+    verifica_bisestile = ((bisestile != 1) && (restituisci_mese(data) == 2 && restituisci_giorno(data) < 29) || (bisestile == 0 && restituisci_mese(data) == 2
         && restituisci_giorno(data) == 29); 
     
     // Terzo controllo - Verifica che i mesi 04, 06, 09 e 11 abbiano 30 giorni
