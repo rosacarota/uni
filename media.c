@@ -4,7 +4,7 @@
 
 int main(){
     int voto, i;
-    float media, somma = 0;
+    float somma = 0;
     
     printf("**********CALCOLA LA MEDIA DEI VOTI*********\n\n");
 
@@ -16,9 +16,9 @@ int main(){
     while(voto != -1){ //se il voto è uguale alla "sentinella" allora il ciclo si verma 
    
     /*se il voto inserito è compreso nell'intervallo di valori
-     * allora si svolgono le operazioni di somma, aumento del contatore
-     * di inserimento di un altro voto
-     */
+    * allora si svolgono le operazioni di somma, aumento del contatore
+    * di inserimento di un altro voto
+    */
 
      if (voto >=0 && voto <=30 || voto ==33){
          somma += voto;
@@ -34,10 +34,11 @@ int main(){
     }
     }
     
-    //la media è data dalla somma dei valori inseriti e dal contatore che aumento all'aggiunta dei valori
-    media = somma/i; 
+    /*la media è data dalla somma dei valori inseriti e dal 
+    *contatore che aumento all'aggiunta dei valori
+    */ 
 
-    printf("La media è %.2f\n", media);
+    printf("La media è %.2f\n", somma/i);
 
     return 0;
 }
