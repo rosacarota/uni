@@ -3,8 +3,7 @@
 #include <stdio.h>
 
 int main(){
-    int voto, i;
-    float somma = 0;
+    int voto, i, somma = 0;
     
     printf("**********CALCOLA LA MEDIA DEI VOTI*********\n\n");
 
@@ -20,25 +19,24 @@ int main(){
     * di inserimento di un altro voto
     */
 
-     if (voto >=0 && voto <=30 || voto ==33){
-         somma += voto;
-         i++;
-         printf("Inserisci un altro voto: ");
-         scanf("%d", &voto);
-    }
+		if (voto >=0 && voto <=30 || voto ==33){
+			somma += voto;
+			i++;
+	        printf("Inserisci un altro voto: ");
+			scanf("%d", &voto);
+			}
     
-    else{
-        printf("Inserisci un valore valido: ");
-         scanf("%d", &voto);
-
-    }
-    }
+		else {
+			printf("Inserisci un valore valido: ");
+			scanf("%d", &voto);
+		}
+	}
     
     /*la media è data dalla somma dei valori inseriti e dal 
     *contatore che aumento all'aggiunta dei valori
     */ 
 
-    printf("La media è %.2f\n", somma/i);
+    printf("La media è %.2f\n", ((float)somma)/i);
 
     return 0;
 }
