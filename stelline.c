@@ -1,28 +1,42 @@
 #include <stdio.h>
 
-void stampa(int stelline);
-
 int main(){
-	int n;
+    int i, j, n;
+    
+    printf("Inserisci un valore: ");
+    scanf("%d", &n);
+    
+    i=0;
+	while(i < n){
+		
 
-	printf("******************STAMPA LE STELLINE******************\n\n");
+		if(i == 0 || i == n -1 ){
+			j=0;
+			while(j < n){
+				printf("*");
+				j++;
+			}
+			}	
+		
+		else{
+		j=0;
+		while( j < n){
+			
+			if(j == 0 || j == n - 1){
+				printf("*");
+			}
+			else{
+			printf(" ");
+			}
 
-	printf("Inserisci la lunghezza del lato: ");
-	scanf("%d", &n);
-
-	stampa(n);
-}
-
-/*int*/void stampa (int stelline){
-	int i;
-
-	i=0; 
-	while(stelline > 0 && i < stelline*stelline){
-		printf("*");
-		i++;
-
-		if (i % stelline == 0) {
-			printf("\n");
+			j++;
+		}	
 		}
+	
+	i++; 
+
+		printf("\n");
 	}
+
+	return 0;
 }
