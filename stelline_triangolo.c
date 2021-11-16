@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 int main(){
 	int i, j = 1, n;
 	
