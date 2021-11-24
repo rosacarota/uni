@@ -41,7 +41,7 @@ int get_dim(int min, int max) {         //inserisce la lunghezza di righe e colo
     return x;
 }
 
-void readMatrix(int a[RMAX][CMAX], int ra, int ca){     //legge le due matrici (funziona fino a qua :c)
+void readMatrix(int a[RMAX][CMAX], int ra, int ca){     //legge le due matrici
     int i, j;
     for(i = 0; i < ra; i++){
         for(j = 0; j < ca; j++){
