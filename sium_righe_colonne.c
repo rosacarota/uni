@@ -55,7 +55,7 @@ int siumColonnaRiga(int a[RMAX][CMAX], int ra, int ca){     //fa la somma delle 
     int i, j, sium = 0;
     
     for(i = 0; i < ra; i++){
-        for (j = 0; i < ca; j++){
+        for (j = 0; j < ca; j++){
             sium += (a[i][j]);
         }
     }
