@@ -45,7 +45,7 @@ void leggi(char string[]){
     lun = strlen(string);
 
     if (string[lun - 1] == '\n'){
-        string[lun - 1] == '\0';
+        string[lun - 1] = '\0';
     }
 }
 
