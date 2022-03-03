@@ -1,7 +1,7 @@
 /*Scrivere un programma che chiede all'utente di inserire il proprio 
 nome e cognome e che allochi dinamicamente lo spazio necessario a 
 memoriccare i due array di caretteri separatamente
-dopo di che si pongano di due array in una matrice*/
+dopo di che si pongano i due array in una matrice*/
 
 #include <stdio.h>
 #include <string.h>
