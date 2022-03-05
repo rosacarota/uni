@@ -12,13 +12,8 @@ int main(void){
     
     printf("Inserisci numero da ricercare nell'array: ");
     scanf("%d", &k);
-    if(!(ricerca_binaria(array, 15, k))){
-        printf("Numero non trovato\n");
-    }
-    else {
-        printf("Numero trovato\n");
-    }
 
+    printf("%d", (ricerca_binaria(array, 15, k)));
 
     return 0;
 }
@@ -28,23 +23,18 @@ int ricerca_binaria(int *arr, int n, int k) {
     int mid;
     int trovato = 0;
     
-    while(inf <= sup && !trovato) {
+    while(inf <= sup) {
         mid = (sup + inf) / 2;
 
         if(k == arr[mid]) {
-            trovato = 1;
+            return mid;
         }
         else if(k > arr[mid]) {
             inf = mid + 1;
         }
-        else if(k < arr[mid]){
+        else if(k < arr[mid]) {
             sup = mid - 1;
         }
     }
-
-    if (!trovato){
-        mid = 0; 
-    }
-
-    return mid;
+    return -1;
 }
