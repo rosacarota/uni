@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-char* leggi_stringa();
+char* leggi_stringa(int buff);
 void array_stringhe(char *A[2], char *nome, char *cognome);
 void inverti(char **A);
 void copia_stringa(char *s1, const char *s2);
@@ -18,43 +18,50 @@ int main(void){
     char *A[2];
 
     printf("Inserisci nome: " );
-    nome = leggi_stringa();
+    nome = leggi_stringa(30);
 
     printf("Inserisci cognome: ");
-    cognome = leggi_stringa();
+    cognome = leggi_stringa(30);
     
-    printf("Nomi e cognomi aggiu\nti:\n")
+    printf("\nNomi e cognomi aggiunti:\n");
     printf("%s\n", nome);
-    printf("%s", cognome);
+    printf("%s\n", cognome);
 
     array_stringhe(A, nome, cognome);
     
-    printf("Nome e cognome nella matrice: ")
+    printf("\nNome e cognome nella matrice: ");
     printf("\n%s", A[0]);
-    printf("\n%s", A[1]);
+    printf("\n%s\n", A[1]);
     
     inverti(A);
     
-    printf("[Matrice invertita]:")
+    printf("\n[Matrice invertita]:");
     printf("\n%s\n", A[0]);
     printf("%s\n", A[1]);
 
     return 0;
 }
-char *leggi_stringa(){
-    char *s;
+char *leggi_stringa(int buff){
+    char *p;
+    char s[30];
+    char ch; 
+    int i = 0; 
 
-    s = malloc(30 + 1);
-    if(!s){
-        return NULL;
+    while ((ch = getchar()) != '\n' && i < buff){
+        s[i] = ch;
+        i++;
+    }
+    
+    s[i] = '\0'; 
+
+    p = malloc(strlen(s) + 1);
+    if(!p){
+        exit(-1);
     }
 
-    fgets(s, 30, stdin);
-    if( s[strlen(s) - 1] == '\n'){
-        s[strlen(s) - 1] = '\0';
-    }
+    copia_stringa(p, s);
 
-    return s;
+    return p;
 }
 
 void array_stringhe(char *A[2], char* nome, char *cognome){
@@ -68,7 +75,9 @@ void inverti(char **A){
     char p[strlen(A[0]) + 1];
     
     copia_stringa(p, A[0]);
+    A[0] = realloc(A[0], strlen(A[1]) + 1);
     copia_stringa(A[0], A[1]);
+    A[1] = realloc(A[1], strlen(p) + 1);
     copia_stringa(A[1], p);
 
 }
