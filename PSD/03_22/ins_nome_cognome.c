@@ -7,10 +7,11 @@ dopo di che si pongano i due array in una matrice*/
 #include <string.h>
 #include <stdlib.h>
 
-char* leggi_stringa();
+char* leggi_stringa(int buff);
 char minimo(char *s);
 void array_stringhe(char *A[2], char *nome, char *cognome);
 char *minimo2(char **A);
+void copia_stringa(char *s1, const char *s2);
 
 int main(void){
     char *nome;
@@ -20,44 +21,61 @@ int main(void){
     char *min;
 
     printf("Inserisci nome: " );
-    nome = leggi_stringa();
+    nome = leggi_stringa(30);
 
     printf("Inserisci cognome: ");
-    cognome = leggi_stringa();
+    cognome = leggi_stringa(30);
 
-    printf("%s\n", nome);
-    printf("%s", cognome);
+    printf("\nNome inserito: %s\n", nome);
+    printf("Cognome inserito: %s", cognome);
 
     min_n = minimo(nome);
     min_c = minimo(cognome);
     
-    printf("\n%c", min_n);
-    printf("\n%c", min_c);
+    printf("\n\nMinimo del nome: %c", min_n);
+    printf("\nMinimo del cognome: %c", min_c);
 
     array_stringhe(A, nome, cognome);
 
-    printf("\n%s", A[0]);
-    printf("\n%s", A[1]);
-
     min = minimo2(A);
 
-    printf("\n%s\n", min);
+    printf("\n\nMinimo nell'array: %s\n", min);
 
 }
-char *leggi_stringa(){
-    char *s;
+//Funzione di copia di una stringa in un'altra
+void copia_stringa(char *s1, const char *s2) {
+    char *pi = s1;
 
-    s = malloc(30 + 1);
-    if(!s){
-        return NULL;
+    while(*s2) {
+        *pi++ = *s2++;
     }
+    
+    *pi = '\0';
+}
+//Funzione che legge da stdin la stringa 
+//dato un determinato buffer
+char *leggi_stringa(int buff){
+    char s[buff + 2];
+    char *p;    
+    char ch;
+    int i = 0;
 
-    fgets(s, 30, stdin);
-    if( s[strlen(s) - 1] == '\n'){
-        s[strlen(s) - 1] = '\0';
-    }
- 
-    return s;
+    while((ch = getchar()) != '\n' && i < (buff + 2) ){
+        s[i] = ch;
+        i++;
+    } //legge carattere per carattere la stringa
+
+    s[i] = '\0'; // aggiunge il terminatore alla fine
+    
+    p = malloc(strlen(s)+1);
+    
+    //faccio la copia della stringa in un'altra
+    //allocata dinamicamente delle giuste dimensioni
+    //rispetto ai caratteri inseriti
+    copia_stringa(p, s);
+
+    return p;
+    
 }
 
 void array_stringhe(char *A[2], char* nome, char *cognome){
@@ -67,7 +85,8 @@ void array_stringhe(char *A[2], char* nome, char *cognome){
 
 }
 
-
+//Funzione che trova il carttere più piccolo 
+//della stringa
 char minimo(char *s){
     char *p; 
     p = s;
@@ -83,6 +102,9 @@ char minimo(char *s){
     return min;
 }
 
+//Funzione che trova i due caratteri più piccoli
+//di nome e cognome e li copia in una stringa 
+//allocata dinamicamente
 char *minimo2(char **A){
     char *minimo2;
     minimo2 = malloc(sizeof(char) * 2);

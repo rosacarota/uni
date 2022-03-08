@@ -15,6 +15,7 @@
 
 char *leggi_stringa(int buff); 
 char *incastona(char *s1, char *s2);
+void copia_stringa(char *s1, const char *s2);
 
 int main(void) {
     char *nome, *cognome;
