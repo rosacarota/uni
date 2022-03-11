@@ -7,15 +7,19 @@
 #include <string.h>
 #include <stdlib.h>
 
+#define NSTRINGS 2
+
+void *xmalloc(size_t bytes);
 char* leggi_stringa(int buff);
 void array_stringhe(char *A[], char *s, int *pos);
 void copia_stringa(char *s1, const char *s2, int nchars);
 void terza_stringa(char **A, int *pos);
+void *xmalloc(size_t bytes);
 
 int main(void){
     char *nome;
     char *cognome;
-    char *A[3];
+    char **A = xmalloc(sizeof(char *) * NSTRINGS);
     int i = 0;
 
     printf("Inserisci nome: " );
@@ -34,7 +38,6 @@ int main(void){
     printf("\nNome e cognome nella matrice: ");
     printf("\n%s", A[0]);
     printf("\n%s\n", A[1]);
-    
 
     terza_stringa(A, &i);
     printf("\nTerza stringa %s\n", A[2]);
@@ -64,34 +67,48 @@ char *leggi_stringa(int buff){
     return p;
 }
 
+void *xmalloc(size_t bytes){
+    void *p; 
+    p = malloc(bytes);
+
+    if(!p){
+        exit(-1);
+    }
+    
+    return p;
+}
+
+void *xrealloc(void *p, size_t bytes){
+    
+    p = realloc(p, bytes);
+
+    if(!p){
+        exit(-1);
+    }
+
+    return p;
+}
 
 void array_stringhe(char *A[], char *s, int *pos){
+    
     A[*pos] = s;
     (*pos)++;
-    
+
 }
 
 void terza_stringa(char **A, int *pos){
     char *terza_stringa; 
     char *pi;
     
-    terza_stringa = malloc(6 + 1); 
-
-    if (!terza_stringa){
-        exit(-1);
-    }
-
-    pi = terza_stringa;
-
-    copia_stringa(terza_stringa, A[0], 3);
+    A = xrealloc(A, (sizeof(char*))*(NSTRINGS + 1));
+    A[2] = xmalloc(3+3+1);
     
-    while(*pi){
-        pi++;
-    }
-
-    copia_stringa(pi, A[1] + strlen(A[1]) - 3, 3);
-    array_stringhe(A, terza_stringa, pos);
-
+    terza_stringa = A[2];
+    
+    copia_stringa(A[2], A[0], 3);
+    
+    strcat(A[2], A[1] + strlen(A[1]) - 3);
+    printf("%s\n", A[2]);
 
 }
 
