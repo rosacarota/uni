@@ -14,7 +14,7 @@ int main(int argc, char* argv[]){
         printf("Non ci sono abbastanza argomenti");
     }
     else{
-        array = riempi_array(argv, lun);
+        array = riempi_array(argv + 1, lun);
         ordina(array, lun);
         
         for(i = 0; i < lun; i++) {
@@ -27,7 +27,7 @@ int main(int argc, char* argv[]){
     return 0;
 }
 
-int *riempi_array(char* argv[], int lun){
+int *riempi_array(char *numeri[], int lun){
     int *array;
     int i;
 
@@ -38,7 +38,7 @@ int *riempi_array(char* argv[], int lun){
     }
 
     for(i = 0; i < lun; i++){
-        array[i] = atoi(argv[i+1]);
+        array[i] = atoi(numeri[i]);
     } 
 
     return array;
