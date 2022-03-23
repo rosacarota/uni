@@ -8,7 +8,7 @@ struct miopunto {
     float ordinata;
 };
       
-punto creapunto(float x, float y){
+punto creapunto(float x, float y) {
     punto p; 
     
     p = malloc(sizeof(*p));
@@ -20,25 +20,24 @@ punto creapunto(float x, float y){
     return p;
 }
 
-float ascissa(punto p){
+float ascissa(punto p) {
     return p->ascissa;
 }
 
-float ordinata(punto p){
+float ordinata(punto p) {
     return p->ordinata;
 }
 
-float distanza(punto p1, punto p2){
+float distanza(punto p1, punto p2) {
     float dx = p1->ascissa - p2->ordinata; 
 	float dy = p1->ascissa - p2->ordinata; 
 	float d = sqrt(dx*dx + dy*dy); 
 	return d;
 }
 
-void stampa (punto p){
-    printf("ascissa: %.2f\n", p->ascissa);
-    printf("ordinata: %.2f\n", p->ordinata);
-    printf("\n");
+void stampa (punto p) {
+    printf("Ascissa: %.2f\n", p->ascissa);
+    printf("Ordinata: %.2f\n\n", p->ordinata);
 }
 
 
