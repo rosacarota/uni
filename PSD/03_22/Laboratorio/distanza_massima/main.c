@@ -24,17 +24,17 @@ int main(int argc, char *argv[]) {
         
         j = 0;
 
-        for(i = 2; i < argc; i = i + 2){
+        for(i = 2; i < argc; i += 2){
             ascissa = (float) atoi(argv[i]);
             ordinata = (float) atoi(argv[i+1]);
             
             p[j] = creapunto(ascissa, ordinata);
-            
-            j++;
-
+          
             stampa(p[j]);
+            j++;
+    
         }
-        
+
     }
 
     //calcola le distanze a coppie e controlla che siano minori di d

@@ -36,8 +36,9 @@ float distanza(punto p1, punto p2){
 }
 
 void stampa (punto p){
-    printf("ascissa: %.2f", p->ascissa);
-    printf("ordinata: %.2f", p->ordinata);
+    printf("ascissa: %.2f\n", p->ascissa);
+    printf("ordinata: %.2f\n", p->ordinata);
+    printf("\n");
 }
 
 
