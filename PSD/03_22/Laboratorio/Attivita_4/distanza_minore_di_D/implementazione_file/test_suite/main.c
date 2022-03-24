@@ -1,56 +1,69 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "punto.h"
 #include "file.h"
 
-#define NPUNTI 30
-FILE *apri_fsuite(char *fname);
+#define M 20
 
-int main(void) {
-    int q, i;
-    float tmp;
-    int n = 0, m=0;
-    float d;
-    float ascissa, ordinata;
-    punto *p;
-    FILE *fp; 
+int run_test_case(char *tc_id, int d);
+
+int main(int argc, char **argv) {
     FILE *test_suite, *result;
+    int pass;
+    float d;
+    char tc_id[M];
 
-
-    
-    fscanf(fp, "%f", &d); 
-    
-    p = malloc(sizeof(punto) * NPUNTI);
-    if(!p) return -1;
-
-    while (fscanf(fp, "%f%f", &ascissa, &ordinata) == 2){
-        p[n++] = creapunto(ascissa, ordinata);
+    if(argc < 3) {
+        printf("Nomi dei file mancanti\n");
+        exit(-1);
     }
 
-    p = realloc(p, sizeof(punto) * n);
-    if(!p) return -1;
-    
-    fclose(fp);
+    test_suite = fopen(argv[1], "r");
+    result = fopen(argv[2], "w");
 
-    for(i = 0; i < n; i++){
-        for(q = i + 1; q < n; q++){
-            tmp = distanza(p[i], p[q]);
-            if(tmp < d){
-                m++;
-            }
-        }
+    if(!test_suite || !result) {
+        printf("Errore in apertura dei file\n");
+        exit(-1);
     }
 
-    printf("Le coppie di punti a distanza minore di %.2f sono %d", d, m);
+    while(fscanf(test_suite, "%s%f", tc_id, &d) == 2) {
+        pass = run_test_case(tc_id, d);
+
+        fprintf(result, "%s ", tc_id);
+        
+        pass == 1 ? fprintf(result, "PASS\n") : fprintf(result, "FAIL\n");
+    }
+
+    fclose(test_suite);
+    fclose(result);
 
     return 0;
 }
-FILE *apri_fsuite(char *fname){
-    FILE* fp;
 
-    fp = fopen(fname, "r");
+int run_test_case(char *tc_id, int d) {
+    char input_fname[M], output_fname[M], oracle_fname[M];	
+    punto *input;
+    float output, oracle;
+    int npunti;
 
-    
+    strcpy(input_fname, tc_id);
+    strcat(input_fname, "_input.txt");
+
+    strcpy(output_fname, tc_id);
+    strcat(output_fname, "_output.txt");
+
+    strcpy(oracle_fname, tc_id);
+    strcat(oracle_fname, "_oracle.txt");
+
+    input = finput_punto(input_fname, &npunti);
+
+    // Calcola le distanze a coppie e controlla che siano minori di d
+    output = calcolo_distanze(input, npunti, d);
+
+    foutput_punto(output_fname, output);
+
+    oracle = fread_oracle(oracle_fname);
+
+    return output == oracle ? 1 : 0;
 }
-
-
