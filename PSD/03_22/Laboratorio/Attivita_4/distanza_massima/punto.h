@@ -1,4 +1,3 @@
-
 typedef struct miopunto *punto;
 
 punto creapunto(float x, float y); 
