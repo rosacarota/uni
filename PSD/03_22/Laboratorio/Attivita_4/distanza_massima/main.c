@@ -2,60 +2,61 @@
 #include <stdlib.h>
 #include "punto.h"
 
-void distanza_massima(punto *p, int n);
+punto* distanza_massima(punto *p, int n);
+
 int main(int argc, char *argv[]) {
-    int n = (argc - 2)/2, m=0;
+    int n = (argc - 1)/2;
     int i, j;
-    float d = 0;
-    float ascissa=0, ordinata=0;
-    punto *p;
+    float x, y;
+    float ascissa1, ascissa2, ordinata1, ordinata2;
+    punto *p, *max_dist;
     
     p = malloc(sizeof(punto) * n);
     if (!p) return -1;
 
-    d = atof(argv[1]);
-    
     j = 0;
 
-    for(i = 2; i < argc; i += 2){
-        ascissa = atof(argv[i]);
-        ordinata = atof(argv[i+1]); 
-        p[j] = creapunto(ascissa, ordinata);
+    for(i = 1; i < argc; i += 2){
+        x = atof(argv[i]);
+        y = atof(argv[i+1]); 
+        p[j] = creapunto(x, y);
        
         j++;
     }
+    
+    max_dist = distanza_massima(p, n);
+    
+    ascissa1 = ascissa(max_dist[0]);
+    ascissa2 = ascissa(max_dist[1]);
 
-    for(i = 0; i < n; i++){
-        stampa(p[i]);
-    }
-    printf("%g", p[0]->ascissa);
-    distanza_massima(p, n);
+    ordinata1 = ordinata(max_dist[0]);
+    ordinata2 = ordinata(max_dist[1]);
+
+    printf("I punti con distanza massima sono:");
+    printf(" [%.2f, %.2f] e [%.2f, %.2f]\n", ascissa1, ordinata1, ascissa2, ordinata2);
 
     return 0;
 }
-void distanza_massima(punto *p, int n){
+punto* distanza_massima(punto *p, int n){
     int i, q;
     float tmp, max = 0;
-    float ascissa1, ordinata1, ascissa2, ordinata2;
-    
+    punto *max_dist; 
 
- //   printf("%g",p[0]->ascissa);
+    max_dist = malloc(sizeof(punto)* 2);
+    if(!p) exit(-1);
+    
     for(i = 0; i < n; i++){
-        for(q = i+1; q < n; q++){
+        for(q = i + 1; q < n; q++){
             tmp = distanza(p[i], p[q]);
             if(tmp > max){
                 max = tmp;
-
-                 //printf("%g",p->ascissa);
-           //     ascissa2 = p[q]->ascissa;
                 
-             //   ordinata1 = p[i]->ordinata;
-               // ordinata2 = p[q]->ordinata;
+                max_dist[0] = p[i];
+                max_dist[1] = p[q];
             }
         }
     }
-
-    printf("I punti a distanza massima sono: [%f,%f]", ascissa1, ordinata1);
-    printf(" [%f,%f]\n", ascissa2, ordinata2); 
+    
+    return max_dist;
 }
 
