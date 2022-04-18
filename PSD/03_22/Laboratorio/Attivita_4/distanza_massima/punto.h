@@ -1,5 +1,5 @@
-typedef struct miopunto *punto;
-
+typedef struct miopunto* punto;
+punto *p;  struct miopunto** p:
 punto creapunto(float x, float y); 
 float ascissa(punto p);
 float ordinata(punto p);
