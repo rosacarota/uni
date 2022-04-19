@@ -118,20 +118,33 @@ Stack merge(Stack s1, Stack s2) {
 }
 
 Stack deleteItems(Stack s, Item it) {
-    struct Node *head, *tmp;
+    struct Node *tmp, *new_head;
+    struct Node *previous;
 
-    head = s->head;
+    // If the item is at the beginning change the references
+    if(isEqual(it, s->head->data)) {
+        tmp = s->head;
+        s->head = s->head->next;
+        free(tmp);
+    }
 
-    while(head != NULL) {
-        if(isEqual(it, head->data)) {
-            tmp = head;
-            head = head->next;
+    new_head = s->head;
+    previous = s->head;
+
+    while(s->head != NULL) {
+        if(isEqual(it, s->head->data)) {
+            tmp = s->head;
+            s->head = s->head->next;
+            previous->next = s->head;
             free(tmp);
         }
         else {
-            head = head->next;
+            previous = s->head;
+            s->head = s->head->next;
         }
     }
+
+    s->head = new_head;
 
     return s;
 }
