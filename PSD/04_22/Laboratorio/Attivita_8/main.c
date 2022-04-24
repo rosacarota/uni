@@ -6,10 +6,12 @@
 int creaPunti(Queue q);
 int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4);
 int getQuadrante(Punto p);
+float spezzata(Queue q);
 
 int main(void) {
     Queue q;
     Queue q1, q2, q3, q4;
+    float lun;
 
     q = newQueue();
 
@@ -17,6 +19,10 @@ int main(void) {
     creaPunti(q);
 
     sottocode(q, &q1, &q2, &q3, &q4);
+    
+    lun = spezzata(q1);
+
+    printf("\n La lunghezza della spezzate è %.2f\n", lun);
 
     if(!isEmpty(q1)) destroyQueue(q1);
     if(!isEmpty(q2)) destroyQueue(q2);
@@ -104,6 +110,7 @@ int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4) {
         }
     }
 
+
     if(isEmpty(*q1)) freeQueue(*q1);
     if(isEmpty(*q2)) freeQueue(*q2);
     if(isEmpty(*q3)) freeQueue(*q3);
@@ -112,4 +119,42 @@ int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4) {
     freeQueue(q);
 
     return 1;
+}
+
+float spezzata(Queue q) {
+    Queue tmp; 
+    Punto p1, p2; 
+    float somma = 0;
+
+    tmp = newQueue();
+
+    while(!isEmpty(q)) {
+        p1 = dequeue(q);
+        if(p1 != NULL){
+            enqueue(tmp, p1);
+        }
+
+
+        p2 = dequeue(q);
+        if(p2 != NULL){
+            enqueue(tmp, p2);
+        }
+        
+        if(p1 == NULL || p2 == NULL) break;
+
+        somma += distanza(p1, p2);
+
+    }
+
+    printQueue(tmp);
+
+    while(!isEmpty(tmp)) {
+        enqueue(q, dequeue(tmp));
+    }
+   
+    putchar('\n');
+
+    printQueue(q);
+
+    return somma;
 }
