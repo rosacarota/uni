@@ -89,7 +89,6 @@ void printQueue(Queue q) {
         putchar('\n');
         head = head->next;
         i++;
-
     }
 }
 

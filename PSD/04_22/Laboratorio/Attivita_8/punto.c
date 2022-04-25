@@ -10,7 +10,7 @@ struct Punto {
 
 void printPunto(Punto p){
     printf("Ascissa: %.2f\n", p->ascissa);
-    printf("Ordinata: %.2f\n\n", p->ordinata);
+    printf("Ordinata: %.2f\n", p->ordinata);
 }
 
 Punto creaPunto(float x, float y) {
