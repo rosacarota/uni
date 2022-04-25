@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "queue.h"
-
-int creaPunti(Queue q);
-int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4);
-int getQuadrante(Punto p);
-float spezzata(Queue q);
+#include "util.h"
 
 int main(void) {
     Queue q;
@@ -14,20 +9,25 @@ int main(void) {
     float lun;
 
     q = newQueue();
+    q1 = newQueue(); 
+    q2 = newQueue(); 
+    q3 = newQueue(); 
+    q4 = newQueue(); 
 
     printf("Creazione punti:\n");
     creaPunti(q);
     
-    // sottocode(q, &q1, &q2, &q3, &q4);
+    // Dealloca q
+    sottocode(q, q1, q2, q3, q4);
     
-    // lun = spezzata(q1);
+    lun = spezzata(q1);
 
-    // printf("\nLa lunghezza della spezzata del primo quadrante è %.2f\n", lun);
+    printf("\nLa lunghezza della spezzata del primo quadrante è %.2f\n", lun);
 
-    if(!isEmpty(q1)) destroyQueue(q1);
-    if(!isEmpty(q2)) destroyQueue(q2);
-    if(!isEmpty(q3)) destroyQueue(q3);
-    if(!isEmpty(q4)) destroyQueue(q4);
+    destroyQueue(q1);
+    destroyQueue(q2);
+    destroyQueue(q3);
+    destroyQueue(q4);
 
     return 0;
 }
@@ -80,16 +80,11 @@ int getQuadrante(Punto p) {
     return -1;
 }
 
-int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4) {
+int sottocode(Queue q, Queue q1, Queue q2, Queue q3, Queue q4) {
     if(q == NULL) return 0;
 
     int quadrante;
     Punto p;
-
-    *q1 = newQueue(); 
-    *q2 = newQueue(); 
-    *q3 = newQueue(); 
-    *q4 = newQueue(); 
 
     while(!isEmpty(q)) {
         p = dequeue(q);
@@ -99,24 +94,19 @@ int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4) {
 
         switch(quadrante) {
             case 1:
-                enqueue(*q1, p);
+                enqueue(q1, p);
                 break;
             case 2:
-                enqueue(*q2, p);
+                enqueue(q2, p);
                 break;
             case 3:
-                enqueue(*q3, p);
+                enqueue(q3, p);
                 break;
             case 4:
-                enqueue(*q4, p);
+                enqueue(q4, p);
                 break;
         }
     }
-
-    if(isEmpty(*q1)) freeQueue(*q1);
-    if(isEmpty(*q2)) freeQueue(*q2);
-    if(isEmpty(*q3)) freeQueue(*q3);
-    if(isEmpty(*q4)) freeQueue(*q4);
 
     freeQueue(q);
 
@@ -136,8 +126,6 @@ float spezzata(Queue q) {
     while(!isEmpty(q)) {
         p2 = dequeue(q);
         enqueue(tmp, p2);
-
-        printf("\nDistanza: %f\n", distanza(p1, p2));
 
         somma += distanza(p1, p2);
 
