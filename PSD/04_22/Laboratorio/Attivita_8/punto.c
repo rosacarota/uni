@@ -34,8 +34,10 @@ float getOrdinata(Punto p) {
 }
 
 float distanza(Punto p1, Punto p2) {
-    float dx = p1->ascissa - p2->ordinata; 
-	float dy = p1->ascissa - p2->ordinata; 
+    if(p1 == NULLITEM || p2 == NULLITEM) return 0;
+
+    float dx = p1->ascissa - p2->ascissa; 
+	float dy = p1->ordinata - p2->ordinata; 
 	float d = sqrt(dx * dx + dy * dy); 
 
 	return d;

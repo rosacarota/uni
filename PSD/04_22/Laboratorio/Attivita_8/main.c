@@ -17,12 +17,12 @@ int main(void) {
 
     printf("Creazione punti:\n");
     creaPunti(q);
-
-    sottocode(q, &q1, &q2, &q3, &q4);
     
-    lun = spezzata(q1);
+    // sottocode(q, &q1, &q2, &q3, &q4);
+    
+    // lun = spezzata(q1);
 
-    printf("\n La lunghezza della spezzate è %.2f\n", lun);
+    // printf("\nLa lunghezza della spezzata del primo quadrante è %.2f\n", lun);
 
     if(!isEmpty(q1)) destroyQueue(q1);
     if(!isEmpty(q2)) destroyQueue(q2);
@@ -69,10 +69,13 @@ int getQuadrante(Punto p) {
     x = getAscissa(p);
     y = getOrdinata(p);
 
-    if(x > 0 && y > 0) return 1;
-    if(x > 0 && y < 0) return 2;
+    /* Tutte le coordinate aventi uno zero faranno
+    *  parte del quadrante positivo
+    */
+    if(x >= 0 && y >= 0) return 1;
+    if(x >= 0 && y < 0) return 2;
     if(x < 0 && y < 0) return 3;
-    if(x < 0 && y > 0) return 4;
+    if(x < 0 && y >= 0) return 4;
 
     return -1;
 }
@@ -110,7 +113,6 @@ int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4) {
         }
     }
 
-
     if(isEmpty(*q1)) freeQueue(*q1);
     if(isEmpty(*q2)) freeQueue(*q2);
     if(isEmpty(*q3)) freeQueue(*q3);
@@ -122,39 +124,31 @@ int sottocode(Queue q, Queue *q1, Queue *q2, Queue *q3, Queue *q4) {
 }
 
 float spezzata(Queue q) {
-    Queue tmp; 
-    Punto p1, p2; 
+    Queue tmp;
+    Punto p1, p2;
     float somma = 0;
 
     tmp = newQueue();
+    
+    p1 = dequeue(q);
+    enqueue(tmp, p1);
 
     while(!isEmpty(q)) {
-        p1 = dequeue(q);
-        if(p1 != NULL){
-            enqueue(tmp, p1);
-        }
-
-
         p2 = dequeue(q);
-        if(p2 != NULL){
-            enqueue(tmp, p2);
-        }
-        
-        if(p1 == NULL || p2 == NULL) break;
+        enqueue(tmp, p2);
+
+        printf("\nDistanza: %f\n", distanza(p1, p2));
 
         somma += distanza(p1, p2);
 
+        p1 = p2;
     }
-
-    printQueue(tmp);
 
     while(!isEmpty(tmp)) {
         enqueue(q, dequeue(tmp));
     }
-   
-    putchar('\n');
 
-    printQueue(q);
+    freeQueue(tmp);
 
     return somma;
 }
