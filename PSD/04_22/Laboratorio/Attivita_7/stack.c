@@ -93,7 +93,8 @@ Stack reverseStack(Stack s) {
     return reverse;
 }
 
-Stack merge(Stack s1, Stack s2) {
+
+/*Stack merge(Stack s1, Stack s2) {
     struct Node *head_1 = s1->head;
     struct Node *head_2 = s2->head;
     Item val;
@@ -147,7 +148,7 @@ Stack deleteItems(Stack s, Item it) {
     s->head = new_head;
 
     return s;
-}
+}*/
 
 void freeStack(Stack s) {
     struct Node* tmp;
