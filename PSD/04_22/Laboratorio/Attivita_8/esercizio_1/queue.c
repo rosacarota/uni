@@ -35,7 +35,6 @@ int enqueue(Queue q, Punto p) {
     struct Node *n;
 
     n = malloc(sizeof(struct Node));
-
     if(n == NULL) return 0;
 
     n->data = p;

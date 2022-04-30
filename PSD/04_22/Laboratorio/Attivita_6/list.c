@@ -1,167 +1,249 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "item.h" 
 #include "list.h"
 
-struct List {
-    struct Node *head;
-    int size;
-};
-
 struct Node {
-     item value;
-     struct Node *next;
+    struct Node *next; 
+    Punto val;
 };
 
 List newList(void) {
-    List l; 
-    
-    l = malloc(sizeof(struct List));
-    if(l == NULL) return NULL;
+    return NULL;
+}
 
-    l->head = NULL;
-    l->size = 0;
+int isEmpty(List l) {
+    return l == NULL;
+}
+
+List tailList(List l) {
+    if(l == NULL) return l;
+    return l->next;
+}
+
+List addHead(List l, Punto p) {
+    struct Node *new;
+    
+    new = malloc(sizeof(struct Node));
+    
+    if(new != NULL) {
+        new->val = p;
+        new->next = l;
+        l = new;
+    }
 
     return l;
 }
 
-int emptyList(List list) { 
-    return list->head == NULL;
+void printList(List l) {
+    int i = 0;
+
+    while(!isEmpty(l)) {
+        printf("Elemento %d: ", i);
+        printItem(l->val);
+        putchar('\n');
+        l = tailList(l);
+        i++;
+    }
 }
 
-List addHead(List list, item val) {
-    struct Node *new; 
+Punto getFirst(List l) {
+    if(isEmpty(l)) return NULLITEM;
+
+    return l->val;
+}
+
+int sizeList(List l) {
+    if(isEmpty(l)) return 0;
     
+    int i = 0;
+    
+    while(!isEmpty(l)) {
+        l = tailList(l);
+        i++;
+    }
+
+    return i;
+}
+
+// Torna la pos della prima occorrenza, altrimenti -1
+int posItem(List l, Punto p) {
+    if(isEmpty(l)) return -1;
+    
+    Punto tmp;
+    int i = 0;
+
+    while(!isEmpty(l)){
+        tmp = getFirst(l);
+        
+        if(isEqual(p, tmp)){
+            return i;
+        }
+
+        l = tailList(l);
+        i++;
+    }
+    
+    return -1;
+}
+
+int searchItem(List l, Punto p) {
+    if(isEmpty(l)) return 0;
+
+    Punto tmp;
+    
+    while(!isEmpty(l)) {
+        tmp = getFirst(l);
+
+        if(isEqual(tmp, p)) {
+            return 1;
+        }
+
+        l = tailList(l);
+    }
+
+    return 0;
+}
+
+List reverseList(List l) {
+    if(isEmpty(l)) return l;
+
+    List rev;
+    Punto tmp; 
+
+    rev = newList();
+
+    while(!isEmpty(l)) {
+        tmp = getFirst(l);
+        rev = addHead(rev, tmp);
+        l = tailList(l);
+    }
+
+    return rev;
+}
+
+List removeItem(List l, Punto p) {
+    if(isEmpty(l)) return l;
+
+    List head = l;
+    
+    Punto val;
+    List tmp;
+    val = getFirst(l);
+
+    if(isEqual(p, val)) {
+        tmp = head;
+        head = l->next;
+        free(tmp);
+        return head;
+    }
+
+    List prev;
+
+    while(!isEmpty(l)) {
+        val = getFirst(l);
+
+        if(isEqual(p, val)){
+            tmp = l;
+            prev->next = l->next; 
+            free(tmp);
+            return head;
+        }
+        
+        prev = l;
+        l = tailList(l);
+    }
+
+    return head; 
+}
+
+// Ritorna l'item alla determinata posizione 
+Punto getItem(List l, int pos) {
+    if(isEmpty(l)) return NULLITEM;
+
+    int i = 0;
+
+    if(pos == 0) {
+        return l->val;
+    }
+
+    while(i < pos && !isEmpty(l)) {
+        l = tailList(l);
+        i++;
+    }
+
+    if(l == NULL) return NULLITEM;
+
+    return l->val;
+}
+
+// Inserisce l'item in una determinata posizione
+List insertList(List l, Punto p, int pos) {
+    struct Node *new;
+
     new = malloc(sizeof(struct Node));
-    if(new == NULL) return NULL; 
+    if(new == NULL) return l;
 
+    new->val = p;
     new->next = NULL;
-    new->value = val;
+
+    if(pos == 0) {
+        new->next = l;
+        l = new;
+        return l;
+    }
+
+    List prev;
     
-    //controllo se non ci sono elementi 
-    if(list->head == NULL) {
-        list->head = new;
-        (list->size)++;
-        return list;
-    }
+    prev = l;
 
-    new->next = list->head; 
-    list->head = new;
-    (list->size)++;
-
-    return list;
-}
-
-List nextNode(List list) {
-    if(list->head != NULL) {
-        list->head = list->head->next;
-        return list;
-    }
-
-    return NULL;
-}
-
-item getItem(List list) {
-    if(!emptyList(list)) {
-        return list->head->value;
-    }
-
-    return NULLITEM; 
-}
-
-int sizeList(List list) {
-    return list->size;
-}
-
-int posItem(List list, item val) {
-    int pos = 0;
-    int found = 0;
-
-    while(!emptyList(list) && !found) {
-        if(eq(getItem(list), val)) {
-            found = 1;
-        }
-        else {
-            list = nextNode(list);
-            pos++;
-        }
-    }
-
-    return found == 0 ? -1 : pos;
-}
-
-item getItemPos(List list, int pos) {
     int i = 0;
 
-    while(i < pos && !emptyList(list)) {
-        list = nextNode(list);
+    while(i < pos - 1 && !isEmpty(prev)) {
+        prev = tailList(prev);
         i++;
     }
 
-    if(!emptyList(list)) {
-        return getItem(list);
+    if(prev == NULL) {
+        free(new);
+        return l;
     }
 
-    return NULLITEM;
+    new->next = prev->next;
+    prev->next = new;
+
+    return l;
 }
 
-List reverseList(List list) {
-    List reverse;
-    List tmp = list;
-    item val;
+// Elimina l'elemento in una determinata posizione
+List removeList(List l, int pos) {
+    if(isEmpty(l)) return l;
 
-    reverse = newList();
+    List tmp = l;
 
-    while(!emptyList(list)){
-        val = getItem(list);
-        reverse = addHead(reverse, val);
-        list = nextNode(list);
+    if(pos == 0) {
+        l = tailList(l);
+        free(tmp);
+        return l;
     }
 
-    freeList(tmp);
-    return reverse;
-}
-
-void printList(List list) {
-    int i = 0;
-    item val; 
-    struct Node *tmp = list->head;
+    List prev;
     
-    while(!emptyList(list)) { 
-        val = getItem(list);
-        printf("Elemento di posizione %d: \n", i);
-        output_item(val);
-        list = nextNode(list);
+    prev = l;
+
+    int i = 0;
+
+    while(i < pos - 1 && !isEmpty(prev)) {
+        prev = tailList(prev);
         i++;
     }
 
-    list->head = tmp;
+    if(prev == NULL) return l;
+    if(prev->next == NULL) return l;
 
-    /*while(!emptyList(list)){
-        val = getItem(list);
-        printf("Elemento di posizione %d: \n", i);
-        output_item(val);
-        head = nextNode(head);
-    }*/
-}
+    tmp = prev->next;
+    prev->next = tmp->next;
 
-void freeList(List list){
-    struct Node *tmp;
-    /*int size = sizeList(list);
+    free(tmp);
 
-    for(i = 0; i < size; i++) {
-        tmp = list->head;
-        list = nextNode(list);
-        free(tmp);
-    }
-
-    free(list);*/
-
-    while(!emptyList(list)) {
-        tmp = list->head;
-        list = nextNode(list);
-        free(tmp);
-    }
-
-    free(list);
+    return l;
 }

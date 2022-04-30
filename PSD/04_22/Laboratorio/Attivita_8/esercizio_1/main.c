@@ -44,7 +44,7 @@ int creaPunti(Queue q) {
     float x, y;
     int i = 0;
     char s;
-
+    
     do {
         printf("\nCreazione del punto %d\n", i++);
 
@@ -63,6 +63,7 @@ int creaPunti(Queue q) {
         s = getchar();
 
         putchar('\n');
+
     } while(s != 'n');
 
     return 1;
@@ -147,7 +148,7 @@ float spezzata(Queue q) {
 
     return somma;
 }
-
+// ci le parentesi degli argomenti, prima q2 e poi q1
 Queue concatena(Queue q1, Queue q2) {
     Queue new = newQueue();
 

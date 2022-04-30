@@ -1,27 +1,31 @@
-#include "item.h"
+#include "punto.h"
 
-typedef struct List *List;
+typedef struct Node* List;
 
-List newList(void);
+List newList();
 
-int emptyList(List list);
+int isEmpty(List l);
 
-List addHead(List list, item val);
+List tailList(List l);
 
-List nextNode(List list);
+List addHead(List l, Punto p);
 
-item getItem(List list);
+Punto getFirst(List l);
 
-int sizeList(List list);
+void printList(List l);
 
-int posItem(List list, item val);
+int sizeList(List l);
 
-item getItemPos(List list, int pos);
+int posItem(List l, Punto p);
 
-List reverseList(List list);
+//int searchItem(List l, Punto p);
 
-void outputList(List list);
+List reverseList(List l);
 
-void freeList(List list);
+//List removeItem(List l, Punto p);
 
-void printList(List list);
+Punto getItem(List l, int pos);
+
+//List insertList(List l, Punto p, int pos);
+
+//List removeList(List l, int pos);
