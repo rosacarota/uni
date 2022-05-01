@@ -30,17 +30,26 @@ int main(void) {
     printItem(coppia[0]);
     printItem(coppia[1]);
     
-    /*char criterio, coordinata;
+    char criterio, coordinata;
     
     printf("\nAggiungi la coordinata da ordinare: ");
     coordinata = getchar();
-    
+
     printf("Aggiungi il criterio secondo cui ordinarla");
     printf(" (c = crescente , d = decrescente): ");
+    
+    getchar();
+    
     criterio = getchar();
-    */
 
-    List sotto_l;
+    list = reverseList(list);
+
+    riordina(&list, coordinata, criterio);
+
+    putchar('\n');
+    printList(list);
+
+    /*List sotto_l;
 
     sotto_l = sottolista(&list, 2, 5);
     
@@ -49,6 +58,29 @@ int main(void) {
 
     printf("\nSottolista\n");
     printList(sotto_l);
+    */
+
+    /*List k; 
+
+    k = newList();
+
+    for(int i = 9; i < 11; i++) {
+        k = addHead(k, creaPunto(i, i));
+    }
+    
+    k = reverseList(k);
+
+    list = inserisci_lista(list, k, 3);
+    
+    printf("Lista l dopo l'aggiunta: \n");
+    printList(list);
+    
+    putchar('\n');
+
+    printf("Lista k dopo l'aggiunta: \n");
+    printList(k);
+    */
+
 
     return 0;
 }
@@ -114,18 +146,7 @@ Punto *distanza_massima(List l) {
     return coppia;
 }
 
-/*void riordina(List l, char coordinata, char criterio) {
-    if(coordinata = 'x') {
-        if(criterio == 'c') {
-        }
-        else if(criterio == 'd') {
-        }
-    }
-    else if(coordinata = 'y') {
-
-    }
-*/
-
+// Precondizione m < n < sizeList
 List sottolista(List *l, int m, int n) {
     if(isEmpty(*l)) return *l;
 
@@ -168,4 +189,76 @@ List sottolista(List *l, int m, int n) {
     *l = reverseList(new);
 
     return sotto_lista;
+}
+
+List inserisci_lista(List l, List k, int m) {
+    int i;
+    List new;
+    Punto val;
+
+    new = newList();
+
+    for(i = 0; i <= m; i++) {
+        val = getFirst(l);
+        new = addHead(new, val); 
+        l = tailList(l);
+    }
+
+    while(!isEmpty(k)) {
+        val = getFirst(k);
+        new = addHead(new, val);
+        k = tailList(k);
+    }
+
+    while(!isEmpty(l)) {
+        val = getFirst(l);
+        new = addHead(new, val);
+        l = tailList(l);
+    }
+
+    l = reverseList(new); 
+
+    return l;
+}
+
+void riordina(List *l, char coordinata, char criterio) {
+    Punto p, min;
+    float x, y;
+    int size = sizeList(*l);
+    int i, min_index;
+
+    List new = newList();
+
+    while(!isEmpty(*l)) {
+        min = getFirst(*l);
+        min_index = 0;
+
+        for(i = 1; i < size; i++) {
+            p = getItem(*l, i);
+            if(p == NULL) break;
+
+            if(coordinata == 'x') {
+                x = getAscissa(p);
+                if(getAscissa(min) > x) {
+                    min = p;
+                    min_index = i;
+                }
+            }
+            else if(coordinata == 'y') {
+                y = getOrdinata(p);
+                if(getOrdinata(min) > y) {
+                    min = p;
+                    min_index = i;
+                }
+            }
+        }
+
+        new = addHead(new, min);
+        *l = removeList(*l, min_index);
+    }
+
+    if(criterio == 'c')
+        new = reverseList(new);
+
+    *l = new;
 }

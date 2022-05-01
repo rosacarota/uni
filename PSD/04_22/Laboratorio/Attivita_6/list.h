@@ -28,4 +28,4 @@ Punto getItem(List l, int pos);
 
 //List insertList(List l, Punto p, int pos);
 
-//List removeList(List l, int pos);
+List removeList(List l, int pos);
