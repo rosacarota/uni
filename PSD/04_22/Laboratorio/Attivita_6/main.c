@@ -49,7 +49,7 @@ int main(void) {
     putchar('\n');
     printList(list);
 
-    /*List sotto_l;
+    List sotto_l;
 
     sotto_l = sottolista(&list, 2, 5);
     
@@ -58,9 +58,8 @@ int main(void) {
 
     printf("\nSottolista\n");
     printList(sotto_l);
-    */
-
-    /*List k; 
+    
+    List k; 
 
     k = newList();
 
@@ -79,9 +78,7 @@ int main(void) {
 
     printf("Lista k dopo l'aggiunta: \n");
     printList(k);
-    */
-
-
+    
     return 0;
 }
 
@@ -234,9 +231,8 @@ void riordina(List *l, char coordinata, char criterio) {
     for(i = 0; i < size; i++) {
         min = getFirst(*l);
 
-        for(j = 0; j < size; j++) {
+        for(j = 1; j < sizeList(*l); j++) {
             p = getItem(*l, j);
-            if(p == NULL) break;
 
             if(coordinata == 'x') {
                 x = getAscissa(p);
