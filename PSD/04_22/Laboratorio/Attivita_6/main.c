@@ -20,7 +20,7 @@ int main(void) {
     
     d_min = distanza_minore(list, 0.5);
     
-    printf("Il numero di coppie con una distanza 0.5 sono %d\n", d_min);
+    printf("Il numero di coppie con una distanza minore di 0.5 sono %d\n", d_min);
 
     Punto *coppia;
 
@@ -225,30 +225,31 @@ void riordina(List *l, char coordinata, char criterio) {
     Punto p, min;
     float x, y;
     int size = sizeList(*l);
-    int i, min_index;
+    int i, j, min_index;
 
     List new = newList();
 
-    while(!isEmpty(*l)) {
-        min = getFirst(*l);
-        min_index = 0;
+    min_index = 0;
 
-        for(i = 1; i < size; i++) {
-            p = getItem(*l, i);
+    for(i = 0; i < size; i++) {
+        min = getFirst(*l);
+
+        for(j = 0; j < size; j++) {
+            p = getItem(*l, j);
             if(p == NULL) break;
 
             if(coordinata == 'x') {
                 x = getAscissa(p);
                 if(getAscissa(min) > x) {
                     min = p;
-                    min_index = i;
+                    min_index = j;
                 }
             }
             else if(coordinata == 'y') {
                 y = getOrdinata(p);
                 if(getOrdinata(min) > y) {
                     min = p;
-                    min_index = i;
+                    min_index = j;
                 }
             }
         }
