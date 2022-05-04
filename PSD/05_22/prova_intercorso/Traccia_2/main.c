@@ -28,7 +28,6 @@ int main(void) {
 	stampaReport(r);
 	
 	nosiRef(r) ? printf("\nIl si ha vinto yuhu\n") : printf("\nIl no ha vinto D:\n");
-					
 	
 	return 0;
 }
