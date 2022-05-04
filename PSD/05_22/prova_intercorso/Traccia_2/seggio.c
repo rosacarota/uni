@@ -46,6 +46,10 @@ Seggio creaSeggio(int id_seggio, Scheda sc) {
 	return s;
 }
 
+int getID_seggio(Seggio s) {
+	return s->id_seggio;
+}
+
 Scheda getScheda(Seggio s) {
 	return s->s;
 }
@@ -54,8 +58,20 @@ int getID_scheda(Scheda s) {
 	return s->id_scheda;
 }
 
-int getID_seggio(Seggio s) {
-	return s->id_seggio;
+int getVotanti(Scheda s) {
+	return s->votanti;
+}
+
+int getVoti_nulli(Scheda s) {
+	return s->voti_nulli;
+}
+
+int getVoti_si(Scheda s) {
+	return s->voti_si;
+}
+
+int getVoti_no(Scheda s) {
+	return s->voti_no;
 }
 
 void printScheda(Scheda s) {

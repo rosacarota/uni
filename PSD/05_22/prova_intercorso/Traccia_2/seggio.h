@@ -17,3 +17,11 @@ int getID_seggio(Seggio s);
 void printScheda(Scheda s);
 
 void printSeggio(Seggio s);
+
+int getVotanti(Scheda s);
+
+int getVoti_nulli(Scheda s);
+
+int getVoti_si(Scheda s);
+
+int getVoti_no(Scheda s);

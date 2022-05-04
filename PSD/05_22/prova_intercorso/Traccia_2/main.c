@@ -25,6 +25,10 @@ int main(void) {
 	else 
 		printf("La lista dei seggi non è completa\n");
 	
+	stampaReport(r);
+	
+	nosiRef(r) ? printf("\nIl si ha vinto yuhu\n") : printf("\nIl no ha vinto D:\n");
+					
 	
 	return 0;
 }

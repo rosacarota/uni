@@ -98,3 +98,63 @@ int completRef(Referendum r) {
 	
 	return 0;	
 }
+
+/*void stampaReport(Referendum r) {
+	Scheda tmp;
+	int i = 0;
+	
+	while(!isEmpty(r)) {
+		tmp = getScheda(r->seggio);
+		
+		printf("-------REPORT-------\n");
+		printf("Votanti: %d\n", getVotanti(tmp));
+		printf("Voti nulli: %d\n", getVoti_nulli(tmp));
+		printf("Voti si: %d\n", getVoti_si(tmp));
+		printf("Voti no: %d\n", getVoti_no(tmp));
+		r = tailReferendum(r);
+		i++;
+	}
+}*/
+
+void stampaReport(Referendum r) {
+	Scheda tmp; 
+	int votanti, voti_nulli, voti_si, voti_no;
+	
+	votanti = 0;
+	voti_nulli = 0;
+	voti_si = 0;
+	voti_no = 0;
+	
+	while(!isEmpty(r)) {
+		tmp = getScheda(r->seggio);
+		
+		votanti += getVotanti(tmp);
+		voti_nulli += getVoti_nulli(tmp);
+		voti_si += getVoti_si(tmp);
+		voti_no += getVoti_no(tmp);
+		
+		r = tailReferendum(r);
+	}
+	
+	printf("-------REPORT-------\n");
+	printf("Votanti: %d\n", votanti);
+	printf("Voti nulli: %d\n", voti_nulli);
+	printf("Voti si: %d\n", voti_si);
+	printf("Voti no: %d\n", voti_no);
+}
+
+int nosiRef(Referendum r) {
+	Scheda tmp;
+	int voti_no = 0, voti_si = 0;
+
+	while(!isEmpty(r)) {
+		tmp = getScheda(r->seggio); 
+		
+		voti_no += getVoti_no(tmp);
+		voti_si += getVoti_si(tmp);
+		
+		r = tailReferendum(r);
+	}
+	
+	return voti_si > voti_no;
+}

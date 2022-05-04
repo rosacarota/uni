@@ -13,3 +13,6 @@ void printReferendum(Referendum r);
 
 int completRef(Referendum r);
 
+void stampaReport(Referendum r);
+
+int nosiRef(Referendum r);
