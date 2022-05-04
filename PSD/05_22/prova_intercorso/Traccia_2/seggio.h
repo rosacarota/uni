@@ -4,7 +4,7 @@ typedef struct Seggio* Seggio;
 typedef struct Scheda* Scheda; 
 
 Scheda creaScheda(int id_scheda, int aventi_diritto_voto, int votanti, 
-				  int voti_nulli, int voti_si, int voti_no);
+                  int voti_nulli, int voti_si, int voti_no);
 
 Seggio creaSeggio(int id_seggio, Scheda sc);
 
