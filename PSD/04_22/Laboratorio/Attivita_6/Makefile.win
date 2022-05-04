@@ -2,9 +2,9 @@ CC=gcc
 CFLAGS= -Wall -g
 BIN=main.o list.o punto.o
 
-all: main.out
+all: main.exe
 
-main.out: $(BIN)
+main.exe: $(BIN)
 	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 main.o: main.c list.h util.h
@@ -17,4 +17,4 @@ punto.o: punto.c punto.h
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm *.o *.out
+	rm *.o
