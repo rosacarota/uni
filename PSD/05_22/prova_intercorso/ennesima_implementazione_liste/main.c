@@ -19,7 +19,7 @@ int main(void) {
     
     //printItem(tmp);
     
-    l = removePos(l, 1);
+    l = removePos(l, 0);
     
     printList(l);
     return 0;

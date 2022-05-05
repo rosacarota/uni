@@ -86,9 +86,11 @@ List removePos(List l, int pos) {
     struct Node *head, *tmp, *new_head;
     int i = 0;
     
+    head = l->head;
+   
     if(pos == 0){
-        tmp = l->head; 
-        l->head = tmp->next;
+        tmp = head; 
+        head = tmp->next;
         free(tmp);
         
         (l->size)--;
@@ -97,7 +99,6 @@ List removePos(List l, int pos) {
     }
     
     new_head = l->head;
-    head = l->head;
     
     while(head != NULL && i < pos - 1) {
         head = head->next;
@@ -109,8 +110,6 @@ List removePos(List l, int pos) {
     free(tmp);
     
     (l->size)--;
-    
-    l->head = new_head;
 
     return l;
 }
