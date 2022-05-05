@@ -10,6 +10,6 @@ int insertList(List l, Item val);
 
 Item getItem(List l , int pos);
 
-List removePos(List l, int pos);
+int removePos(List l, int pos);
 
 void printList(List l);

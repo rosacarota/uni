@@ -78,29 +78,27 @@ Item getItem(List l , int pos) {
     return head->it;
 }
 
-List removePos(List l, int pos) {
-    if(l->head == NULL) return l;
+int removePos(List l, int pos) {
+    if (l->head == NULL) return 0;
     
-    if(pos >= l->size) return l;
+    if (pos >= l->size) return 0;
     
     struct Node *head, *tmp, *new_head;
     int i = 0;
     
     head = l->head;
    
-    if(pos == 0){
-        tmp = head; 
-        head = tmp->next;
+    if (pos == 0){
+        tmp = l->head; 
+        l->head = tmp->next;
         free(tmp);
         
         (l->size)--;
         
-        return l;
+        return 1;
     }
     
-    new_head = l->head;
-    
-    while(head != NULL && i < pos - 1) {
+    while (head != NULL && i < pos - 1) {
         head = head->next;
         i++;
     }
@@ -111,7 +109,7 @@ List removePos(List l, int pos) {
     
     (l->size)--;
 
-    return l;
+    return 1;
 }
 
 void printList(List l) {
