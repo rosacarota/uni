@@ -105,13 +105,13 @@ List removePos(List l, int pos) {
     }
     
     tmp = head->next; 
-    head = head->next->next; 
+    head->next = tmp->next; 
     free(tmp);
     
     (l->size)--;
     
     l->head = new_head;
-    
+
     return l;
 }
 
