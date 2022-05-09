@@ -20,6 +20,10 @@ Item creaItem(char l, int n) {
 }
 
 void printItem(Item it) {
+    if (it == NULLITEM) {
+        printf("Item nullino");
+        return;
+    }  
     printf("Il caratteruccio nell'item: %c\n", it->lettera);
     printf("Il numeretto nell'item: %d", it->numero);    
 }
