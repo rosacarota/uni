@@ -52,6 +52,7 @@ void copia_stringa(char *s1, const char *s2) {
     
     *pi = '\0';
 }
+
 //Funzione che legge da stdin la stringa 
 //dato un determinato buffer
 char *leggi_stringa(int buff){
