@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-// Precondizione: n < m
 int algoritmoEuclide (int n, int m);
 
 int main(void) {
@@ -13,7 +12,7 @@ int algoritmoEuclide(int n, int m){
         return m;
 
     if(m > n)
-        algoritmoEuclide(m - n, n);
+        return algoritmoEuclide(m - n, n);
     else 
-        algoritmoEuclide(m, n - m);
+        return algoritmoEuclide(m, n - m);
 }

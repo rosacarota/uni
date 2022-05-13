@@ -2,7 +2,7 @@
 #include <string.h>
 
 void reverse_string(char s[], int lun) {
-    if(lun == ) return;
+    if(lun == lun/2) return;
     
     char tmp;
 
@@ -10,7 +10,7 @@ void reverse_string(char s[], int lun) {
     s[lun] = *s;
     *s = tmp;
 
-    reverse_string(s + 1, lun - 1);
+    reverse_string(++s, lun - 2);
 }
 
 int main(void) {
