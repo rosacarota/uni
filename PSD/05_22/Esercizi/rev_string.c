@@ -2,7 +2,7 @@
 #include <string.h>
 
 void reverse_string(char s[], int inf , int sup) {
-    if(sup == inf) return;
+    if(sup <= inf) return;
     
     char tmp;
 
@@ -14,13 +14,9 @@ void reverse_string(char s[], int inf , int sup) {
 }
 
 int main(void) {
-    char s[] = "stringa";
+    char s[] = "Stringa";
    
     reverse_string(s, 0, strlen(s) - 1);
-
-    /*for(int i = 0; i < strlen(s)/2; i++){
-        reverse_string(s, strlen(s) - 1);
-    }*/
 
     printf("La stringa reversata %s\n", s);
 }

@@ -64,6 +64,12 @@ void printList(List l) {
     return clone;
 }*/
 
+List tailList(List l) {
+    if(l == NULL) return NULL;
+
+    return l->next;
+}
+
 //Non ricorsiva
 int sizeList(List l) {
     if(l == NULL) return 0;

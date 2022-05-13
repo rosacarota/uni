@@ -2,6 +2,8 @@ CC=gcc
 CFLAGS=-Wall -g
 BIN=main.o list.o item.o
 
+all: main.out
+
 main.out: $(BIN)
 	$(CC) $(CFLAGS) -o $@ $^
 

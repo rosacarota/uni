@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "list.h"
 
+int size_list_rec(List l);
 int main(void) {
     List l;
 
@@ -17,9 +18,16 @@ int main(void) {
 
     int count = 0;
 
-    count = sizeListRec(l);
+    count = size_list_rec(l);
 
     printf("\nNumero di nodi: %d\n", count);
 
     return 0;
+}
+
+int size_list_rec(List l) {
+    if(isEmpty(l)) return 0;
+
+    return 1 + size_list_rec(tailList(l));
+
 }

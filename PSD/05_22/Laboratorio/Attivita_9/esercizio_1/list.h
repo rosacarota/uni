@@ -8,6 +8,8 @@ int isEmpty(List l);
 
 List addFirst(List l, Item it);
 
+List tailList(List l);
+
 int sizeList(List l);
 
 int sizeListRec(List l);
