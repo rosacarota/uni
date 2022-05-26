@@ -9,16 +9,16 @@ void reverse_string(char s[], int lun) {
     tmp = s[lun];
     s[lun] = *s;
     *s = tmp;
-
-    reverse_string(++s, lun - 2);
+    
+    if(lun > 2)
+        reverse_string(++s, lun - 2);
 }
 
 int main(void) {
-    char s[] = "stringa";
+    char s[] = "";
     
-    //for(int i = 0; i < strlen(s); i++){
-        reverse_string(s, strlen(s) - 1);
-    //}
+    reverse_string(s, strlen(s) - 1);
+
 
     printf("La stringa reversata %s\n", s);
 }

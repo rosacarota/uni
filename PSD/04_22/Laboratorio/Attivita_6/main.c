@@ -18,7 +18,7 @@ int main(void) {
     list = reverseList(list);
     printList(list);
     
-    d_min = distanza_minore(list, 0.5);
+/*    d_min = distanza_minore(list, 0.5);
     
     printf("Il numero di coppie con una distanza minore di 0.5 sono %d\n", d_min);
 
@@ -48,10 +48,12 @@ int main(void) {
 
     putchar('\n');
     printList(list);
-
+*/
     List sotto_l;
 
-    sotto_l = sottolista(&list, 2, 5);
+    sotto_l = newList();
+
+    sotto_l = sottolista_rec(list, sotto_l, 2, 4);
     
     printf("\nLista vecchia\n");
     printList(list);
@@ -59,7 +61,7 @@ int main(void) {
     printf("\nSottolista\n");
     printList(sotto_l);
     
-    List k; 
+/*    List k; 
 
     k = newList();
 
@@ -78,7 +80,7 @@ int main(void) {
 
     printf("Lista k dopo l'aggiunta: \n");
     printList(k);
-    
+  */  
     return 0;
 }
 
@@ -143,8 +145,17 @@ Punto *distanza_massima(List l) {
     return coppia;
 }
 
+
+List sottolista_rec(List l, List sottolista, int m, int n) {
+    if (m > n) return (reverseList(sottolista));
+
+    sottolista = addHead(l, getItem(l, m));
+
+    sottolista_rec(l, sottolista, m + 1, n);
+
+}
 // Precondizione m < n < sizeList
-List sottolista(List *l, int m, int n) {
+/*List sottolista(List *l, int m, int n) {
     if(isEmpty(*l)) return *l;
 
     List sotto_lista, new, tmp;
@@ -187,6 +198,7 @@ List sottolista(List *l, int m, int n) {
 
     return sotto_lista;
 }
+*/
 
 List inserisci_lista(List l, List k, int m) {
     int i;
