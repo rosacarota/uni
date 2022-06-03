@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "btree.h"
+#include "queue.h"
 
 struct Node {
     Item data;
@@ -57,7 +58,23 @@ Btree consBtree(Item it, Btree sx, Btree dx) {
 
     return new;
 }
-
+void printPerLevel(Btree t){
+    if(isEmpty(t)){
+        printf("albero vuoto\n");
+        return;
+    }
+    Btree left,right;
+    Queue q = newQueue();
+    enqueue(q,t);
+    while(!isEmptyQueue(q)){
+        Btree node=dequeue(q);
+        outputItem(node->item);
+        if((left = figlioSX(node))!=NULL)
+            enqueue(q,left);
+        if((right = figlioDX(node))!=NULL)
+            enqueue(q,right);
+    }
+}
 void inorder(Btree T) {
 	if (isEmpty(T)) return;
 	
