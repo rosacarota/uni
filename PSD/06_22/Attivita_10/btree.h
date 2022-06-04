@@ -1,11 +1,14 @@
 #include "item.h"
-#include "queue.h"
 
 typedef struct Node *Btree;
 
 Btree newBtree(void);
 
 int isEmpty(Btree t);
+
+Item getItem(Btree t);
+
+void setItem(Btree t, Item it);
 
 Btree figlioSX(Btree t);
 
@@ -15,6 +18,6 @@ struct Node *getRoot(Btree t);
 
 Btree consBtree(Item it, Btree sx, Btree dx);
 
-void printPerLevel(Btree t);
+void preorder(Btree T);
 
-void inorder(Btree T);
+void print(Btree t);

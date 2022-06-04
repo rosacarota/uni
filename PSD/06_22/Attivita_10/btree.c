@@ -9,24 +9,24 @@ struct Node {
     struct Node *right;
 };
 
-static void setItem(Btree t, Item it) {
-    if (t == NULL) return;
-
-    t->data = it;
-}
-
-static Item getItem(Btree t) {
-    if (t == NULL) return NULLITEM;
-
-    return t->data;
-}
-
 Btree newBtree(void) {
     return NULL;
 }
 
 int isEmpty(Btree t) {
     return t == NULL;
+}
+
+void setItem(Btree t, Item it) {
+    if (t == NULL) return;
+
+    t->data = it;
+}
+
+Item getItem(Btree t) {
+    if (t == NULL) return NULLITEM;
+
+    return t->data;
 }
 
 Btree figlioSX(Btree t) {
@@ -58,28 +58,33 @@ Btree consBtree(Item it, Btree sx, Btree dx) {
 
     return new;
 }
-void printPerLevel(Btree t){
+
+void preorder(Btree t) {
+	if (isEmpty(t)) return;
+	
+	printItem(getItem(getRoot(t)));
+    putchar(' ');
+	preorder(figlioSX(t));
+	preorder(figlioDX(t));
+}
+
+void print(Btree t){
     if(isEmpty(t)){
         printf("albero vuoto\n");
         return;
     }
+
     Btree left,right;
     Queue q = newQueue();
     enqueue(q,t);
+    
     while(!isEmptyQueue(q)){
-        Btree node=dequeue(q);
-        outputItem(node->item);
-        if((left = figlioSX(node))!=NULL)
+        Btree node = dequeue(q);
+        printItem(node->data);
+        putchar(' '); 
+        if((left =figlioSX(node))!=NULL)
             enqueue(q,left);
         if((right = figlioDX(node))!=NULL)
             enqueue(q,right);
     }
-}
-void inorder(Btree T) {
-	if (isEmpty(T)) return;
-	
-	printItem(getItem(getRoot(T)));
-    putchar(' ');
-	inorder(figlioSX(T));
-	inorder(figlioDX(T));
 }
