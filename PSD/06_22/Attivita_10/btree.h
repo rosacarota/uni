@@ -21,3 +21,5 @@ Btree consBtree(Item it, Btree sx, Btree dx);
 void preorder(Btree T);
 
 void print(Btree t);
+
+void print(Btree t);

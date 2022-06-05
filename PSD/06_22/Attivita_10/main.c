@@ -15,6 +15,7 @@ Item max(Btree t);
 Item min(Btree t);
 int uguali(Btree t1, Btree t2);
 int uguali_diff(Btree t1, Btree t2, Diff *diff);
+int aggiungiNodo(Btree *t, Item nodo); 
 
 int main(void) {
     Btree a, b;
@@ -23,7 +24,7 @@ int main(void) {
     b = createBtree();
 
     printf("Albero:\n");
-    preorder(a);
+    print(a);
 
     printf("\n\nNumero di foglie: %d\n", contaFoglie(a));
 
@@ -55,6 +56,11 @@ int main(void) {
         printf("\nLivello: %d", d->livello);
         printf("\nItem diversi: %d e %d\n", d->a, d->b);
     }
+    
+    aggiungiNodo(&a, 13);
+
+    printf("\nDopo l'aggiunta:\n");
+    print(a);
 
     return 0;
 }
@@ -163,3 +169,32 @@ int uguali_diff(Btree t1, Btree t2, Diff *diff) {
     return 0;
 }
 
+int aggiungiNodo(Btree *t, Item nodo) {
+    Btree sx, dx; 
+    
+    if(isEmpty(*t)) return 0;
+
+    if (isEmpty(figlioSX(*t))){
+        dx = figlioDX(*t);
+        sx = consBtree(nodo, NULL, NULL); 
+        *t = consBtree(getItem(*t), sx, dx);
+        
+        return 1;
+    }
+
+    if (isEmpty(figlioDX(*t))) {
+        sx = figlioDX(*t);
+        dx = consBtree(nodo, NULL, NULL); 
+        *t = consBtree(getItem(*t), sx, dx);
+        
+        return 1;
+    }
+    
+    sx = figlioSX(*t);
+    dx = figlioDX(*t);
+
+    aggiungiNodo(&sx, nodo);
+
+    aggiungiNodo(&dx, nodo);
+
+}

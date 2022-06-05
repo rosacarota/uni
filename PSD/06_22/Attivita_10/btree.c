@@ -68,7 +68,7 @@ void preorder(Btree t) {
 	preorder(figlioDX(t));
 }
 
-void print(Btree t){
+/*void print(Btree t){
     if(isEmpty(t)){
         printf("albero vuoto\n");
         return;
@@ -86,5 +86,29 @@ void print(Btree t){
             enqueue(q,left);
         if((right = figlioDX(node))!=NULL)
             enqueue(q,right);
+    }
+}*/
+
+void print(Btree t) {
+    if(isEmpty(t)){
+        printf("\nL'albero è vuoto\n");
+    }
+
+    Queue q = newQueue(); 
+    Btree node; 
+
+    enqueue(q, t);
+
+    while(!isEmptyQueue(q)) {
+        node = dequeue(q);
+        
+        printItem(getItem(node));
+        putchar(' ');
+
+        if(figlioSX(node) != NULL)
+            enqueue(q, figlioSX(node));
+        
+        if(figlioDX(node) != NULL) 
+            enqueue(q, figlioDX(node));
     }
 }
