@@ -25,10 +25,10 @@ void nodiIntervallo(BST t, Item a, Item b);
 
 void nodi_intervallo(BST t, Item a, Item b);
 
-//Queue stampaLivello(BST t, Queue q, int k);
+Queue stampaLivello(BST t, Queue q, int k);
 
-BST bilanciato(BST t, int *arr, int size, int i);
+BST arrToBST(BST t, int *arr, int size, int i);
 
-int livello(BST t);
+int getLivello(BST t);
 
 void nodiAltezza(BST t, Queue q, int l, int k);

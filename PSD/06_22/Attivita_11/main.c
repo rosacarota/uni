@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include "util.h"
 
-BST creaBST(void);
-
 int main(void) {
-    BST bst = newBST();
+    BST bst = creaBST();
 
-    /*printf("\nAlbero binario di ricerca:\n");
+    printf("\nAlbero binario di ricerca:\n");
 
     print2D(bst);
     
@@ -17,14 +15,7 @@ int main(void) {
 
     nodi_intervallo(bst, 5, 30);
 
-    putchar('\n');*/
-
-    int arr[NODES] = {3, 7, 9, 10, 12, 19, 22, 30, 40};
-    bst = bilanciato(bst, arr, 0, 9);
-
-    print2D(bst);
-    
-    printf("\nLivelli: %d\n", livello(bst));
+    printf("\nLivelli: %d\n", getLivello(bst));
     
     Queue q = newQueue();
 
@@ -39,6 +30,8 @@ int main(void) {
         putchar(' ');
     }
 
+    putchar('\n');
+    
     return 0;
 }
 
@@ -126,28 +119,27 @@ void nodi_intervallo(BST t, Item a, Item b) {
     }
 }
 
-BST bilanciato(BST t, int *arr, int i, int size) {
+BST arrToBST(BST t, int *arr, int size, int i) {
     int mid = ((i + size) / 2);
 
     if (i >= size) return t; 
     
     t = insertNode(t, arr[mid]);
 
-    t = bilanciato(t, arr, i, mid);
-    t = bilanciato(t, arr, mid + 1, size);
-
+    t = arrToBST(t, arr, i, mid);
+    t = arrToBST(t, arr, mid + 1, size);
     return t;
 }
 
-int livello(BST t) {
-    if(t == NULL) return 0;
+int getLivello(BST t) {
+    if (t == NULL) return 0;
 
     int liv_dx, liv_sx;
 
-    liv_dx = livello(figlioDX(t));
-    liv_sx = livello(figlioSX(t));
+    liv_dx = getLivello(figlioDX(t));
+    liv_sx = getLivello(figlioSX(t));
 
-    if(liv_dx < liv_sx) {
+    if (liv_dx < liv_sx) {
         return 1 + liv_sx;
     }
     else {
