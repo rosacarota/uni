@@ -1,5 +1,6 @@
 #include "bst.h"
 #include "btree.h"
+#include "queue.h"
 
 #define NODES 10
 
@@ -19,3 +20,15 @@ BST creaBST(void);
 int isBST(Btree t);
 
 void inserisciArray(BST t, Item *arr, int size);
+
+void nodiIntervallo(BST t, Item a, Item b);
+
+void nodi_intervallo(BST t, Item a, Item b);
+
+//Queue stampaLivello(BST t, Queue q, int k);
+
+BST bilanciato(BST t, int *arr, int size, int i);
+
+int livello(BST t);
+
+void nodiAltezza(BST t, Queue q, int l, int k);

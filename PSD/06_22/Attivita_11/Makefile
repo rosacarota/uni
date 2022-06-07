@@ -1,6 +1,6 @@
 CC= gcc
 CFLAGS= -Wall -g
-BIN= main.o bst.o btree.o item.o
+BIN= main.o bst.o btree.o item.o queue.o
 
 all: bst.out
 
@@ -19,5 +19,8 @@ btree.o: btree.c btree.h
 item.o: item.c item.h
 	$(CC) $(CFLAGS) -c $< 
 
-clean: 
+queue.o: queue.c queue.h
+	$(CC) $(CFLAGS) -c $<
+
+clean:
 	rm *.o *.out

@@ -1,24 +1,43 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "util.h"
 
 BST creaBST(void);
 
 int main(void) {
-    Btree t = T;
-    BST bst = creaBST();
+    BST bst = newBST();
+
+    /*printf("\nAlbero binario di ricerca:\n");
 
     print2D(bst);
     
-    // printf("\nAlbero binario di ricerca: %d\n", isBST(t));
+    putchar('\n');
+
+    printf("\nNodi dell'albero da 5 a 30: ");
+
+    nodi_intervallo(bst, 5, 30);
+
+    putchar('\n');*/
+
+    int arr[NODES] = {3, 7, 9, 10, 12, 19, 22, 30, 40};
+    bst = bilanciato(bst, arr, 0, 9);
+
+    print2D(bst);
     
-    printf("\nAlbero ordinato: ");
+    printf("\nLivelli: %d\n", livello(bst));
+    
+    Queue q = newQueue();
 
-    Item arr[10];
+    printf("Nodi al livello 3: ");
+    nodiAltezza(bst, q, 3, 1);
+    
+    BST node; 
 
-    inserisciArray(bst, arr, 0);
-
-    for (int i = 0; i < 10; i++)
-        printf("%d ", arr[i]);
+    while(!isEmptyQueue(q)) {
+        node = dequeue(q);
+        printItem(getItem(node));
+        putchar(' ');
+    }
 
     return 0;
 }
@@ -52,26 +71,95 @@ int isBST(Btree t) {
     return isBST(figlioSX(t)) && isBST(figlioDX(t));
 }
 
-/*int isBST(Btree t) {
-    if (t == NULL) return 1;
+void inserisciArray(BST t, Item *arr, int size) {
+    static int i = 0;
+    if (t == NULL) return;
+    if (i == size) return;
 
-    if (isMinus(getItem(figlioSX(t)), getItem(t))) {
-        if (isMinus(getItem(figlioDX(t)), getItem(t))) {
-            return 1;
+    inserisciArray(figlioSX(t), arr, size);
+    arr[i] = getItem(t);
+    i++;
+    inserisciArray(figlioDX(t), arr, size);
+}
+
+void nodiIntervallo(BST t, Item a, Item b) {
+    if (a > b) return;
+    Item arr[NODES];
+    int size = sizeof(arr) / sizeof(*arr);
+
+    inserisciArray(t, arr, size);
+
+    int i;
+
+    for (i = 0; i < size; i++) {
+        if (arr[i] == a)
+            break;
+    }
+
+    if (arr[i] != a) return;
+
+    while (i < size) {
+        printItem(arr[i]);
+        putchar(' ');
+
+        i++;
+
+        if (arr[i] == b) {
+            printItem(arr[i]);
+            break;
         }
     }
-    else {
-        return 0;
+}
+
+void nodi_intervallo(BST t, Item a, Item b) {
+    if (t == NULL) return;
+
+    if (isMinus(a, getItem(t))) {
+        nodi_intervallo(figlioSX(t), a , b);
     }
 
-    isBST(figlioSX(t));
-    isBST(figlioDX(t));
-}*/
+    printItem(getItem(t));
+    putchar(' ');
 
-void inserisciArray(BST t, Item *arr, int i) {
-    if(t == NULL) return;
+    if (isMinus(getItem(t), b)) {
+        nodi_intervallo(figlioDX(t), a , b);
+    }
+}
 
-    inserisciArray(figlioDX(t), arr, i + 2);
-    arr[i] = getItem(t);
-    inserisciArray(figlioSX(t), arr, i + 1);
+BST bilanciato(BST t, int *arr, int i, int size) {
+    int mid = ((i + size) / 2);
+
+    if (i >= size) return t; 
+    
+    t = insertNode(t, arr[mid]);
+
+    t = bilanciato(t, arr, i, mid);
+    t = bilanciato(t, arr, mid + 1, size);
+
+    return t;
+}
+
+int livello(BST t) {
+    if(t == NULL) return 0;
+
+    int liv_dx, liv_sx;
+
+    liv_dx = livello(figlioDX(t));
+    liv_sx = livello(figlioSX(t));
+
+    if(liv_dx < liv_sx) {
+        return 1 + liv_sx;
+    }
+    else {
+        return 1 + liv_dx;
+    }
+}
+
+void nodiAltezza(BST t, Queue q, int l, int k) {
+    if (t == NULL) return;
+    if (l == k) 
+        enqueue(q, t);
+
+    nodiAltezza(figlioSX(t), q, l - 1 , k);
+    nodiAltezza(figlioDX(t), q, l - 1, k);
 }

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "bst.h"
 
-#define COUNT 7
+#define COUNT 10
 
 struct Node {
     Item data;

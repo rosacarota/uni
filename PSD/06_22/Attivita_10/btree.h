@@ -22,4 +22,4 @@ void preorder(Btree T);
 
 void print(Btree t);
 
-void print(Btree t);
+void print2D(Btree root);

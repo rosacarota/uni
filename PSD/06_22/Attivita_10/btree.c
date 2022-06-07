@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "btree.h"
 #include "queue.h"
+#define COUNT 7
 
 struct Node {
     Item data;
@@ -111,4 +112,34 @@ void print(Btree t) {
         if(figlioDX(node) != NULL) 
             enqueue(q, figlioDX(node));
     }
+}
+
+static void print2DUtil(Btree root, int space)
+{
+    // Base case
+    if (root == NULL)
+        return;
+ 
+    // Increase distance between levels
+    space += COUNT;
+ 
+    // Process right child first
+    print2DUtil(root->right, space);
+ 
+    // Print current node after space
+    // count
+    printf("\n");
+    for (int i = COUNT; i < space; i++)
+        printf(" ");
+    printf("%d\n", root->data);
+ 
+    // Process left child
+    print2DUtil(root->left, space);
+}
+ 
+// Wrapper over print2DUtil()
+void print2D(Btree root)
+{
+   // Pass initial space count as 0
+   print2DUtil(root, 0);
 }

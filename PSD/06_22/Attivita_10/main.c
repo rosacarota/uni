@@ -16,6 +16,7 @@ Item min(Btree t);
 int uguali(Btree t1, Btree t2);
 int uguali_diff(Btree t1, Btree t2, Diff *diff);
 int aggiungiNodo(Btree *t, Item nodo); 
+void aggiungi(Btree *t, Item nodo);
 
 int main(void) {
     Btree a, b;
@@ -57,10 +58,11 @@ int main(void) {
         printf("\nItem diversi: %d e %d\n", d->a, d->b);
     }
     
-    aggiungiNodo(&a, 13);
 
     printf("\nDopo l'aggiunta:\n");
-    print(a);
+    
+    aggiungi(&a, 13);
+    print2D(a);
 
     return 0;
 }
@@ -170,7 +172,7 @@ int uguali_diff(Btree t1, Btree t2, Diff *diff) {
 }
 
 int aggiungiNodo(Btree *t, Item nodo) {
-    Btree sx, dx; 
+    Btree sx, dx, s, d; 
     
     if(isEmpty(*t)) return 0;
 
@@ -183,18 +185,52 @@ int aggiungiNodo(Btree *t, Item nodo) {
     }
 
     if (isEmpty(figlioDX(*t))) {
-        sx = figlioDX(*t);
+        sx = figlioSX(*t);
         dx = consBtree(nodo, NULL, NULL); 
         *t = consBtree(getItem(*t), sx, dx);
         
         return 1;
     }
     
-    sx = figlioSX(*t);
-    dx = figlioDX(*t);
+    s = figlioSX(*t);
+    d = figlioDX(*t);
 
-    aggiungiNodo(&sx, nodo);
+    aggiungiNodo(&s, nodo);
 
-    aggiungiNodo(&dx, nodo);
+    aggiungiNodo(&d, nodo);
+}
 
+void aggiungi(Btree *t, Item nodo) {
+    if (isEmpty(*t)){
+        *t = consBtree(nodo, NULL, NULL); 
+        return;
+    }
+
+    Btree sx, dx, s, d;
+	
+    if (isEmpty(figlioSX(*t))) {
+        printf("\nmocc a mammt\n");
+        sx = consBtree(nodo, NULL, NULL);
+        *t = consBtree(getItem(*t), sx, figlioDX(*t));
+        putchar('\n');
+        printItem(getItem(*t));
+        putchar('\n');
+        return;
+    }
+
+    if (isEmpty(figlioDX(*t))) {
+        printf("\nmannacc a maronn\n");
+        dx = consBtree(nodo, NULL, NULL);
+        *t = consBtree(getItem(*t), figlioSX(*t), dx);
+        putchar('\n');
+        printItem(getItem(*t));
+        putchar('\n');
+        return;
+    }
+
+    s = figlioSX(*t);
+    d = figlioDX(*t);
+
+	aggiungi(&s, nodo);
+	aggiungi(&d, nodo);
 }
