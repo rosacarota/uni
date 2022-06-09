@@ -11,7 +11,7 @@ int main(void) {
     
     putchar('\n');
 
-    /*printf("\nNodi dell'albero da 5 a 30: ");
+    printf("\nNodi dell'albero da 5 a 30: ");
 
     nodi_intervallo(bst, 5, 30);
 
@@ -34,7 +34,7 @@ int main(void) {
     printf("\nNumero di nodi: %d", contaNodi(bst)); 
     printf("\n%d è un mediano? %d\n", 5, mediano(bst, 5));
     
-    printf("Gli archi tra %d e %d sono: %d\n", 5, 6, conta_archi(bst, 5, 3));*/
+    printf("Gli archi tra %d e %d sono: %d\n", 5, 6, conta_archi(bst, 5, 3));
     
     printf("L'antenato comune è: ");
     printItem(antenatoComune(bst, 35, 40));
