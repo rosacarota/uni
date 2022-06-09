@@ -32,3 +32,19 @@ BST arrToBST(BST t, int *arr, int size, int i);
 int getLivello(BST t);
 
 void nodiAltezza(BST t, Queue q, int l, int k);
+
+int contaNodi(BST t); 
+
+int mediano(BST t, Item it); 
+
+//conta elementi di una queue
+int conta_elementi(Queue q);
+
+//conta gli archi tra i due nodi 
+int archi(Queue q1, Queue q2);
+
+//inserisce i nodi in una coda
+void conta(BST t, Item it, Queue q);
+
+//funzione guscio
+int conta_archi(BST t, Item it1, Item it2);

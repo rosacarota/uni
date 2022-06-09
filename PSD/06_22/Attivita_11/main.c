@@ -11,7 +11,7 @@ int main(void) {
     
     putchar('\n');
 
-    printf("\nNodi dell'albero da 5 a 30: ");
+    /*printf("\nNodi dell'albero da 5 a 30: ");
 
     nodi_intervallo(bst, 5, 30);
 
@@ -31,7 +31,13 @@ int main(void) {
     }
 
     putchar('\n');
+    printf("\nNumero di nodi: %d", contaNodi(bst)); 
+    printf("\n%d è un mediano? %d\n", 5, mediano(bst, 5));
     
+    printf("Gli archi tra %d e %d sono: %d\n", 5, 6, conta_archi(bst, 5, 3));*/
+
+
+
     return 0;
 }
 
@@ -154,4 +160,106 @@ void nodiAltezza(BST t, Queue q, int l, int k) {
 
     nodiAltezza(figlioSX(t), q, l - 1 , k);
     nodiAltezza(figlioDX(t), q, l - 1, k);
+}
+
+int contaNodi(BST t) {
+    if(t == NULL) return 0;
+
+    return 1 + contaNodi(figlioSX(t)) + contaNodi(figlioDX(t));
+}
+
+int mediano(BST t, Item it) {
+    if(t == NULL) return 0;
+
+    if(contains(t, it)) {
+        if(figlioSX(t) == NULL && figlioDX(t) == NULL) return 1; 
+        if(isEqual(it, getItem(t))){
+            return (contaNodi(figlioSX(t)) == contaNodi(figlioDX(t)));
+        } 
+
+        else 
+            return mediano(figlioSX(t), it) || mediano(figlioDX(t), it);
+    }
+
+    return 0;
+}
+
+int conta_archi(BST t, Item it1, Item it2) {
+    Queue cu = newQueue();
+    Queue cucu = newQueue();
+    conta(t, it1, cu);
+    conta(t, it2, cucu);
+    
+    return archi(cu, cucu);
+}
+
+void conta(BST t, Item it, Queue q) {
+    if(t == NULL) return;
+    
+    if(!(isEqual(getItem(t), it))) {
+        if(contains(figlioDX(t), it)) {
+            conta(figlioDX(t), it, q);
+            enqueue(q, t);
+        }
+        else if(contains(figlioSX(t), it)) {
+            conta(figlioSX(t), it, q);
+            enqueue(q, t);
+        }
+    }
+    else {
+        enqueue(q, t);
+        return;
+    }
+
+    return;
+}
+
+int archi(Queue q1, Queue q2) {
+    BST node1, node2;
+    int count = 0, count1, count2, num_archi;
+
+    count1 = conta_elementi(q1);
+    count2 = conta_elementi(q2);
+    
+    enqueue(q2, NULL);
+
+    while(!isEmptyQueue(q1)) {
+        node1 = dequeue(q1);
+        while(1) {
+           node2 = dequeue(q2);
+           if(node2 == NULL) {
+               break;
+           }
+
+           if(isEqual(getItem(node1), getItem(node2))) {
+               count++;
+           }
+           enqueue(q2, node2);
+        }
+
+        enqueue(q2, NULL);
+    }
+
+    num_archi = (count1 + count2) - (2 * count);
+    
+    return num_archi;
+}
+
+int conta_elementi(Queue q) {
+    Queue tmp = newQueue();
+    BST node; 
+    int count = 0;
+
+    while(!isEmptyQueue(q)) {
+        node = dequeue(q);
+        count++;
+        enqueue(tmp, node);
+    }
+    
+    while(!isEmptyQueue(tmp)) {
+        node = dequeue(tmp);
+        enqueue(q, node);
+    }
+
+    return count;
 }
