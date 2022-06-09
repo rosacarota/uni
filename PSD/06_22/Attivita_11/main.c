@@ -35,7 +35,9 @@ int main(void) {
     printf("\n%d è un mediano? %d\n", 5, mediano(bst, 5));
     
     printf("Gli archi tra %d e %d sono: %d\n", 5, 6, conta_archi(bst, 5, 3));*/
-
+    
+    printf("L'antenato comune è: ");
+    printItem(antenatoComune(bst, 35, 40));
 
 
     return 0;
@@ -262,4 +264,22 @@ int conta_elementi(Queue q) {
     }
 
     return count;
+}
+
+Item antenatoComune(BST t, Item it1, Item it2) {
+    if(t == NULL) return NULLITEM;
+
+    if(it1 == it2) return it1; 
+
+    if(contains(figlioSX(t), it1) && contains(figlioSX(t), it2)) {
+        antenatoComune(figlioSX(t), it1, it2);
+    }  
+    else if(contains(figlioDX(t), it1) && contains(figlioDX(t), it2)) {
+        antenatoComune(figlioDX(t), it1, it2);
+    }
+    else 
+        return getItem(t);
+
+    /*if(getItem(t) == it1 || getItem(t) == it2) 
+        return getItem(t);*/
 }

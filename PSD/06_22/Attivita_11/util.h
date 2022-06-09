@@ -48,3 +48,5 @@ void conta(BST t, Item it, Queue q);
 
 //funzione guscio
 int conta_archi(BST t, Item it1, Item it2);
+
+Item antenatoComune(BST t, Item it1, Item it2);
