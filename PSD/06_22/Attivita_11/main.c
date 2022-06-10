@@ -37,7 +37,7 @@ int main(void) {
     printf("Gli archi tra %d e %d sono: %d\n", 5, 6, conta_archi(bst, 5, 3));
     
     printf("L'antenato comune è: ");
-    printItem(antenatoComune(bst, 35, 40));
+    printItem(antenatoComune(bst, 35, 25));
 
 
     return 0;
@@ -278,8 +278,5 @@ Item antenatoComune(BST t, Item it1, Item it2) {
         antenatoComune(figlioDX(t), it1, it2);
     }
     else 
-        return getItem(t);
-
-    /*if(getItem(t) == it1 || getItem(t) == it2) 
-        return getItem(t);*/
+        return getItem(t); 
 }
