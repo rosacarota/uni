@@ -1,33 +1,23 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "item.h"
 
-struct Item {
-    int key;
-    int data;
+// Change the function based on the item type (TODO in case)
+void printItem(Item it){
+    printf("%d", it);
 }
 
-Item newItem(int key, int data) {
-    Item it; 
-
-    it = malloc(sizeof(struct Item));
-    if (it == NULL) return NULL;
-
-    it->key = key;
-    it->data = data;
-
-    return it;
+/* Change the function based on the item type (TODO in case)
+*  You will need this function only if the item is allocated
+*/
+void freeItem(Item it) {
+    ;
 }
 
-void printItem(Item it) {
-    printf("%d\n", it->key);
-    printf("%d\n", it->data);
-}
-
+// Change the function based on the item type (TODO in case)
 int isEqual(Item it1, Item it2) {
-    return (it1->key == it2->key) && (it1->item == it2->item);
+    return it1 == it2;
 }
 
 int isMinus(Item it1, Item it2) {
-    return (it1->key) < (it2->key);
+    return it1 < it2;
 }

@@ -46,6 +46,9 @@ static void scendi(PQueue q) {
 }
 
 static void sali(PQueue q) {
+    // pos = q->size e non (q->size) - 1 perchè si
+    // inizia a riempire da 1 e non da 0, quindi gli
+    // elementi sono proprio n e non n - 1
     int tmp, pos = q->size, i = pos/2;
 
     while (pos > 1) {

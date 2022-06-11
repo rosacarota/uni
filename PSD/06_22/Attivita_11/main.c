@@ -174,7 +174,8 @@ int mediano(BST t, Item it) {
     if(t == NULL) return 0;
 
     if(contains(t, it)) {
-        if(figlioSX(t) == NULL && figlioDX(t) == NULL) return 1; 
+        if(figlioSX(t) == NULL && figlioDX(t) == NULL) 
+            return 1; 
         if(isEqual(it, getItem(t))){
             return (contaNodi(figlioSX(t)) == contaNodi(figlioDX(t)));
         } 

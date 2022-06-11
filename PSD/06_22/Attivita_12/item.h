@@ -1,12 +1,19 @@
-typedef struct Item *Item;
+#include <limits.h>
 
-Item newItem(int key, int data);
+// Give the item a type (TODO)
+typedef int Item;
 
+#define NULLITEM 0
+#define ITEM_MAX INT_MAX 
+#define ITEM_MIN INT_MIN 
+
+// Print data of an item to stdout
 void printItem(Item it);
 
-// Restituisce 1 se item e key sono uguali
+// Deallocate an item (to use only if the item is allocated) 
+void freeItem(Item it);
+
+// Return 1 if the items are equal 0 if not
 int isEqual(Item it1, Item it2);
 
-// Restituisce 1 se la chiave di it1 
-// è minore della chiave di it2
 int isMinus(Item it1, Item it2);
