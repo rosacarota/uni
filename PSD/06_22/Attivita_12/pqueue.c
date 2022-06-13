@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pqueue.h"
+#include "key.h"
 
 #define MAXPQ 50
 
@@ -40,8 +41,7 @@ static void scendi(PQueue q) {
 
             i = pos;
         }
-        else 
-            break; // non ci sono  più scambi da fare
+        else break; // non ci sono  più scambi da fare
     }
 }
 
@@ -81,7 +81,7 @@ int isEmpty(PQueue q) {
     return q->size == 0;
 }
 
-int getMax(PQueue q) {
+Key getMax(PQueue q) {
     return q->vet[1];
 }
 

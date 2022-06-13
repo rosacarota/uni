@@ -1,4 +1,4 @@
-#include "item.h"
+#include "key.h"
 
 typedef struct PQueue *PQueue;
 
@@ -6,7 +6,7 @@ PQueue newPQ(void);
 
 int isEmpty(PQueue q);
 
-int getMax(PQueue q);
+Key getMax(PQueue q);
 
 int deleteMax(PQueue q);
 
