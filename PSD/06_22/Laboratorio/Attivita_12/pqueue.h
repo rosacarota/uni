@@ -10,5 +10,6 @@ Key getMax(PQueue q);
 
 int deleteMax(PQueue q);
 
-int insert(PQueue q, Item it);
+int insert(PQueue q, Key k);
 
+void printPQueue(PQueue q);

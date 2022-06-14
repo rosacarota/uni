@@ -1,7 +1,14 @@
-// Give the item a type (TODO)
+#include <limits.h>
+
 typedef int Key;
 
-void printKey(Key k);
+#define NULLITEM 0
+#define ITEM_MAX INT_MAX
+#define ITEM_MIN INT_MIN
+
+void printKey(Key it);
+
+void printKeyAsChar(Key it);
 
 int isEqual(Key k1, Key k2);
 

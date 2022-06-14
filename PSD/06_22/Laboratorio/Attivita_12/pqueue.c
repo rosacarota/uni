@@ -1,39 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pqueue.h"
-#include "key.h"
 
 #define MAXPQ 50
 
 struct PQueue {
     int vet[MAXPQ];
     int size;
-}
+};
 
 static void scendi(PQueue q) {
-    int tmp, size = q->size, i = 1, pos;
+    int tmp, pos, i = 1, size = q->size;
 
-    while(1) {
-        // se il nodo in posizione i ha due figli,
-        // allora se il figlio di sx (quello in pos i*2)
-        // è maggiore del figlio di dx (quello in pos i*2 + 1)
-        // allora pos sarà uguale a i*2, altriementi è uguale 
-        // a i*2 + 1
-        if ((i * 2) + 1 <= size) {
-            pos = (q->vet[i * 2] > q->vet[(i * 2) + 1]) ?
-                   i * 2 : (i * 2) + 1;
+    while (1) {
+        if (i * 2 + 1 <= size) {
+            pos = (q->vet[i * 2] > q->vet[i * 2 + 1]) ? i * 2 : i * 2 + 1;
         }
-        // se il figlio ha un solo nodo 
-        // sicuramente sarà a sinista
-        // poichè è un heap, quindi sarà sicumante 
-        // quello in pos i*2
         else if (i * 2 <= size) {
             pos = i * 2;
         }
-        else break; // il nodo corrente non ha figli
-        
-        // se il nodo nella posizione calcolata è maggiore
-        // del nodo corrente allora si scambiano i due
+        else break;
+
         if (q->vet[pos] > q->vet[i]) {
             tmp = q->vet[i];
             q->vet[i] = q->vet[pos];
@@ -41,15 +28,12 @@ static void scendi(PQueue q) {
 
             i = pos;
         }
-        else break; // non ci sono  più scambi da fare
+        else break;
     }
 }
 
 static void sali(PQueue q) {
-    // pos = q->size e non (q->size) - 1 perchè si
-    // inizia a riempire da 1 e non da 0, quindi gli
-    // elementi sono proprio n e non n - 1
-    int tmp, pos = q->size, i = pos/2;
+    int tmp, pos = q->size, i = pos / 2;
 
     while (pos > 1) {
         if (q->vet[pos] > q->vet[i]) {
@@ -58,10 +42,9 @@ static void sali(PQueue q) {
             q->vet[pos] = tmp;
 
             pos = i;
-            i = pos/2;
+            i = pos / 2;
         }
-        else
-            break;
+        else break;
     }
 }
 
@@ -87,7 +70,7 @@ Key getMax(PQueue q) {
 
 int deleteMax(PQueue q) {
     if (q == NULL || q->size == 0) return 0;
-    
+
     q->vet[1] = q->vet[q->size];
 
     (q->size)--;
@@ -97,14 +80,24 @@ int deleteMax(PQueue q) {
     return 1;
 }
 
-int insert(PQueue q, int key) {
-    if (q == NULL || q->size == 0) reuturn 0;
+int insert(PQueue q, Key k) {
+    if (q == NULL || q->size == MAXPQ) return 0;
 
     (q->size)++;
-    
-    q->vet[q->size] = key;
+
+    q->vet[q->size] = k;
 
     sali(q);
 
     return 1;
+}
+
+void printPQueue(PQueue q) {
+    int i = 1;
+
+    while (i <= q->size) {
+        printKey(q->vet[i]);
+        putchar(' ');
+        i++;
+    }
 }
