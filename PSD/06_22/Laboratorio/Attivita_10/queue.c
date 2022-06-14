@@ -3,8 +3,8 @@
 #include "queue.h"
 
 struct Node {
+    Btree data;
     struct Node *next;
-    Btree tree;
 };
 
 struct Queue {
@@ -17,12 +17,13 @@ Queue newQueue(void) {
     Queue q;
 
     q = malloc(sizeof(struct Queue));
+
     if(q == NULL) return NULL;
 
     q->head = NULL;
     q->tail = NULL;
     q->size = 0;
-    
+
     return q;
 }
 
@@ -31,66 +32,61 @@ int isEmptyQueue(Queue q) {
 }
 
 int enqueue(Queue q, Btree t) {
-    struct Node *new;
+    struct Node *n;
 
-    new = malloc(sizeof(struct Node));
-    if(new == NULL) return 0;
+    n = malloc(sizeof(struct Node));
 
-    new->next = NULL;
-    new->tree = t;
+    if(n == NULL) return 0;
+
+    n->data = t;
+    n->next = NULL;
 
     if(q->head == NULL) {
-        q->head = new;
-        q->tail = new;
+        q->head = n;
+        q->tail = n;
         (q->size)++;
         return 1;
     }
-    
-    q->tail->next = new;
-    q->tail = new;
+
+    q->tail->next = n;
+    q->tail = n;
+
     (q->size)++;
 
     return 1;
 }
 
 Btree dequeue(Queue q) {
-    struct Node *tmp;
+    if(isEmptyQueue(q)) return NULL;
+
     Btree val;
+    struct Node *tmp;
 
-    if(q->head == NULL) return NULLITEM;
-
-    val = q->head->tree;
+    val = q->head->data;
 
     tmp = q->head;
     q->head = q->head->next;
     free(tmp);
+
+    if(q->head == NULL) {
+        q->tail = NULL;
+    }
 
     (q->size)--;
 
     return val;
 }
 
-/*void printQueue(Queue q) {
-    struct Node *head = q->head;
-    int i = 0;
+void freeQueue(Queue q) {
+    struct Node *head, *tmp;
+
+    head = q->head;
 
     while(head != NULL) {
-        printf("Element %d = ", i);
-        printItem(head->data);
-        putchar('\n');
+        tmp = head;
         head = head->next;
-        i++;
-    }
-}
-
-void freeQueue(Queue q) {
-    struct Node *tmp;
-
-    while(q->head != NULL) {
-        tmp = q->head;
-        q->head = q->head->next;
         free(tmp);
     }
 
     free(q);
-}*/
+}

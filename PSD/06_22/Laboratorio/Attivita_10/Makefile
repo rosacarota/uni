@@ -7,7 +7,7 @@ all: btree.out
 btree.out: $(BIN)
 	$(CC) $(CFLAGS) -o $@ $^
 
-main.o: main.c btree.h 
+main.o: main.c btree.h util.h 
 	$(CC) $(CFLAGS) -c $<
 
 btree.o: btree.c btree.h  

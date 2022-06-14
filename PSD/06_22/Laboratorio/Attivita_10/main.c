@@ -1,22 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "btree.h"
+#include "util.h"
 
-typedef struct Diff {
+struct Diff {
     int livello;
     Item a;
     Item b;
-} Diff;
-
-Btree createBtree(void);
-int contaFoglie(Btree t);
-Btree speculare(Btree t);
-Item max(Btree t);
-Item min(Btree t);
-int uguali(Btree t1, Btree t2);
-int uguali_diff(Btree t1, Btree t2, Diff *diff);
-int aggiungiNodo(Btree *t, Item nodo); 
-void aggiungi(Btree *t, Item nodo);
+};
 
 int main(void) {
     Btree a, b;
@@ -58,12 +48,15 @@ int main(void) {
         printf("\nItem diversi: %d e %d\n", d->a, d->b);
     }
     
+    Item arr1[5] = {1, 2, 3, 4, 5};
+    Btree nuovo = newBtree();
+
+    nuovo = arrToBtree(nuovo, arr1, 0, 5);
+    print2D(nuovo);
 
     printf("\nDopo l'aggiunta:\n");
     
-    aggiungi(&a, 13);
-    print2D(a);
-
+    nuovo = aggiungiNodo(nuovo, 6);
     return 0;
 }
 
@@ -171,7 +164,54 @@ int uguali_diff(Btree t1, Btree t2, Diff *diff) {
     return 0;
 }
 
-int aggiungiNodo(Btree *t, Item nodo) {
+Btree aggiungiNodo(Btree t, Item node) {
+    Queue q = newQueue(); 
+    Btree tmp; 
+    Btree nuovo = newBtree();
+    
+    int size = contaNodi(t);
+    Item arr[size]; 
+
+    enqueue(q, t);
+    
+    int i = 0;
+    while(!isEmptyQueue(q) && i < size) {
+        tmp = dequeue(q);
+
+        arr[i] = getItem(tmp);
+        printItem(arr[i]);
+        i++;
+
+        enqueue(q, figlioSX(tmp));
+        enqueue(q, figlioDX(tmp));
+    }
+    
+    for(int j = 0; j < size; j++) {
+        if(arr[j] == NULLITEM) {
+            // l'uguale solo per struct e int
+            arr[j] = node;
+            break;
+        }
+
+    }
+
+    for(int k = 0; k < size; k++) {
+        printItem(arr[k]);
+    }
+   
+    arrToBtree(nuovo, arr, 0, size);
+    
+    return nuovo;
+}
+
+Btree arrToBtree(Btree t, Item *a, int i, int size) {
+    if (i >= size) return t;
+    
+    t = consBtree(a[i], arrToBtree(figlioSX(t), a, 2*i+1, size), arrToBtree(figlioDX(t), a, 2*i+2, size));
+
+    return t;
+}
+/*int aggiungiNodo(Btree *t, Item nodo) {
     Btree sx, dx, s, d; 
     
     if(isEmpty(*t)) return 0;
@@ -198,9 +238,9 @@ int aggiungiNodo(Btree *t, Item nodo) {
     aggiungiNodo(&s, nodo);
 
     aggiungiNodo(&d, nodo);
-}
+}*/
 
-void aggiungi(Btree *t, Item nodo) {
+/*void aggiungi(Btree *t, Item nodo) {
     if (isEmpty(*t)){
         *t = consBtree(nodo, NULL, NULL); 
         return;
@@ -209,7 +249,6 @@ void aggiungi(Btree *t, Item nodo) {
     Btree sx, dx, s, d;
 	
     if (isEmpty(figlioSX(*t))) {
-        printf("\nmocc a mammt\n");
         sx = consBtree(nodo, NULL, NULL);
         *t = consBtree(getItem(*t), sx, figlioDX(*t));
         putchar('\n');
@@ -233,4 +272,11 @@ void aggiungi(Btree *t, Item nodo) {
 
 	aggiungi(&s, nodo);
 	aggiungi(&d, nodo);
+
+}
+*/
+int contaNodi(Btree t) {
+    if (t == NULL) return 0;
+
+    return 1 + contaNodi(figlioSX(t)) + contaNodi(figlioDX(t));
 }
