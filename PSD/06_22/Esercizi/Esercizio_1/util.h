@@ -1,9 +1,22 @@
-#include "item.h"
+#include "bst.h"
+#include "btree.h"
+#include "queue.h"
+#include "list.h"
 
-//char *espressione(Btree t, char *espr, int size);
+#define NODES 10
 
-Btree creaAlbero(void);
+int altezza(BST t);
 
-void espressione(Btree t, char *a, int size, int i);
+BST aggiungi(BST t, Item *arr, int i, int size); 
 
-int contanodi(Btree t);
+BST creaBST(void);
+
+int k_bilanciato(BST t, int k);
+
+void stampa_foglie(BST t);
+
+List chiaveMinore(Btree t, Item k);
+
+//void reverseQueue(Queue q);
+int foglieK(Btree t, int k);
+

@@ -19,3 +19,5 @@ int contains(BST t, Item it);
 BST deleteNode(BST t, Item it);
 
 void print2D(BST root);
+
+void print(BST t, int nodi);

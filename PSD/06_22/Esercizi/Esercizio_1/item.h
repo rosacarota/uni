@@ -1,7 +1,7 @@
 #include <limits.h>
 
 // Give the item a type (TODO)
-typedef char Item;
+typedef int Item;
 
 #define NULLITEM 0
 #define ITEM_MAX INT_MAX 

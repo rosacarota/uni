@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bst.h"
+#include "queue.h"
+#include <math.h>
 
 #define COUNT 10
 
@@ -10,6 +12,7 @@ struct Node {
     struct Node *right;
 };
 
+void printArray(int *arr, int size);
 Item getItem(BST t) {
     if (t == NULL) return NULLITEM;
 
@@ -123,3 +126,51 @@ static void print2DUtil(BST root, int space) {
 void print2D(BST root) {
    print2DUtil(root, 0);
 }
+
+void printArray(Item *arr, int size) {
+    for(int i = 0; i < size; i++) {
+        printItem(arr[i]);
+        putchar(' ');
+    }
+}
+
+void print(BST t, int nodi) {
+    int j = 1, i = 0, k;
+    
+    Item array[nodi];
+
+    Queue q = newQueue();
+    BST node;
+
+    enqueue(q, t);
+    
+    node = dequeue(q);
+    enqueue(q, figlioSX(node));
+    enqueue(q, figlioDX(node));
+
+    printItem(getItem(node));
+    
+    while(!isEmptyQueue(q)) {
+        node = dequeue(q);
+        array[i] = getItem(node);
+    
+        enqueue(q, figlioSX(node));
+        enqueue(q, figlioDX(node));
+         
+        i++;
+
+        k = pow(2, j);
+
+        if(i == k) {
+            fflush(stdout);
+            printArray(array, j);
+            putchar('\n');
+            i = 0;
+            j++;
+        }
+
+    }
+    
+}
+
+
