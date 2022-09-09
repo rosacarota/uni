@@ -27,7 +27,7 @@ int main(void) {
     
     bst = aggiungi(bst, arr, 0, 11);
     
-    Item b[10] = { 12, 23, 34, 45, 56, 67, 78, 89, 90, 10 };
+    /*Item b[10] = { 12, 23, 34, 45, 56, 67, 78, 89, 90, 10 };
     
     Queue q1 = newQueue();
 
@@ -61,8 +61,11 @@ int main(void) {
 
     printList(l);
     print2D(bst);    
+*/
+    Btree nuovo = creaBtree();
+    print2D(nuovo);
 
-
+    printf("Le foglie a livello 3 sono %d\n", foglieK(nuovo, 2));
     return 0;
 }
 //Per creare l'albero della figura usare la funzione di creazione 
@@ -223,7 +226,7 @@ List chiaveMinore(Btree t, Item k) {
     return reverseList(l);
 }
 
-void reverseQueue(Queue q) {
+/*void reverseQueue(Queue q) {
     if(isEmptyQueue(q)) return;
 
     Item e = dequeue(q);
@@ -231,4 +234,69 @@ void reverseQueue(Queue q) {
     reverseQueue(q);
 
     enqueue(q, e);
+}*/
+
+/*void BtreeToArray(Btree t, Item *arr, int i, int size) {
+    if(i >= size) return;
+
+    arr[i] = getItem(t);
+
+    BtreeToArray(figlioSX(t), arr, 2*i+1, size);
+    BtreeToArray(figlioDX(t), arr, 2*i+2, size);
 }
+
+void stampa(Item *arr, int size) {
+    for(int i = 0; i < size; i++) {
+        if(arr[i] == NULLITEM){
+            printf("-1");
+        }
+        printItem(arr[i]);
+    }
+}*/
+
+/*void stampa(Btree t) {
+    Queue q = newQueue();
+
+    Btree node;
+
+    enqueue(q, t);
+    printItem(getItem(t));
+    putchar(' ');
+
+    while(!isEmptyQueue(q)) {
+        node = dequeue(q);
+        
+        if(figlioSX(node) != NULL){
+            printItem(getItem(figlioSX(node)));
+            enqueue(q, figlioSX(node));
+        } 
+        else {
+            printf("NULL");
+        }
+
+        putchar(' ');
+
+        if(figlioDX(node) != NULL) {
+            printItem(getItem(figlioDX(node)));
+            enqueue(q, figlioDX(node));
+        }
+        else {
+            printf("NULL");
+        }
+        
+        putchar(' ');
+    }
+}*/
+
+int foglieK(Btree t, int k) {
+    if(t == NULL) return 0;
+
+    if(k == 1) {
+        if(figlioSX(t) == NULL && figlioDX(t) == NULL){
+            return 1;
+        }
+    } 
+
+    return (foglieK(figlioSX(t), k-1) + foglieK(figlioDX(t), k-1));
+}
+

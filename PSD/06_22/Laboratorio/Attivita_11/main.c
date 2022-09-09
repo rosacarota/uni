@@ -38,7 +38,14 @@ int main(void) {
     
     printf("L'antenato comune è: ");
     printItem(antenatoComune(bst, 35, 25));
+    
+    BST albero_gianfranco = newBST();
 
+    Item arr1[7] = { 1, 2, 3, 4, 5, 6, 7}; 
+
+    albero_gianfranco = buildBST(albero_gianfranco, arr1, 7);
+
+    print2D(albero_gianfranco);
 
     return 0;
 }
@@ -280,4 +287,16 @@ Item antenatoComune(BST t, Item it1, Item it2) {
     }
     else 
         return getItem(t); 
+}
+
+BST buildBST(BST t, Item *array, int size) {
+    if (size < 1) {
+        return NULL;
+    }
+
+    t = insertNode(t, array[size/2]);
+    buildBST(t, array, size/2);
+    buildBST(t, array+(size/2)+1, size/2);
+    return t;
+
 }

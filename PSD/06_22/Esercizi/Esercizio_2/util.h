@@ -17,4 +17,6 @@ void stampa_foglie(BST t);
 
 List chiaveMinore(Btree t, Item k);
 
-void reverseQueue(Queue q);
+//void reverseQueue(Queue q);
+int foglieK(Btree t, int k);
+

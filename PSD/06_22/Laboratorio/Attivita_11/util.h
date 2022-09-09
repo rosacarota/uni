@@ -50,3 +50,5 @@ void conta(BST t, Item it, Queue q);
 int conta_archi(BST t, Item it1, Item it2);
 
 Item antenatoComune(BST t, Item it1, Item it2);
+
+BST buildBST(BST t, Item *array, int size);
